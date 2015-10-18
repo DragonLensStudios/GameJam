@@ -3,9 +3,9 @@
 public class PlayerMovement : MonoBehaviour
 {
     public float Speed;
-    public float playerX;
-    public float playerY;
-    public Animator anim;
+    private float playerX;
+    private float playerY;
+    private Animator anim;
 
 
     public void Awake()

@@ -1,17 +1,17 @@
 fileFormatVersion: 2
 guid: 17e1a6eccafcc61489e8ffde58f344d2
-timeCreated: 1445163673
+timeCreated: 1445177889
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Logos_0
-    21300002: Logos_1
-    21300004: Logos_2
-    21300006: Logos_3
-    21300008: Logos_4
-    21300010: Logos_5
-    21300012: Logos_6
-    21300014: Logos_7
+    21300000: EyeBookLogo
+    21300002: BooTubeLogo
+    21300004: QwackerLogo
+    21300006: 3KunLogo
+    21300008: Singularity
+    21300010: MetalLogo
+    21300012: TalkLogo
+    21300014: CodeDevelopLogo
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -38,7 +38,7 @@ TextureImporter:
   maxTextureSize: 256
   textureSettings:
     filterMode: 0
-    aniso: 16
+    aniso: 1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -58,7 +58,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Logos_0
+    - name: EyeBookLogo
       rect:
         serializedVersion: 2
         x: 0
@@ -66,9 +66,9 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Logos_1
+    - name: BooTubeLogo
       rect:
         serializedVersion: 2
         x: 64
@@ -76,9 +76,9 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Logos_2
+    - name: QwackerLogo
       rect:
         serializedVersion: 2
         x: 128
@@ -86,9 +86,9 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Logos_3
+    - name: 3KunLogo
       rect:
         serializedVersion: 2
         x: 192
@@ -96,9 +96,9 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Logos_4
+    - name: Singularity
       rect:
         serializedVersion: 2
         x: 0
@@ -106,9 +106,9 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Logos_5
+    - name: MetalLogo
       rect:
         serializedVersion: 2
         x: 64
@@ -116,9 +116,9 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Logos_6
+    - name: TalkLogo
       rect:
         serializedVersion: 2
         x: 128
@@ -126,9 +126,9 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Logos_7
+    - name: CodeDevelopLogo
       rect:
         serializedVersion: 2
         x: 192
@@ -136,7 +136,7 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using UnityEditor;
 
 public class CustomJson : MonoBehaviour
 {
-    public MonoScript scriptobject;
     public string json_name;
     public string json_filetype = ".json";
     public TextAsset json_asset;

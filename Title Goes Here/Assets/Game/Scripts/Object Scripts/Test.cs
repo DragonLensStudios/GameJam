@@ -13,11 +13,11 @@ public class Test : MonoBehaviour
 	{
 		_playerPos.position += Vector3.up;
 	}
-    
-	public void KillPlayer(GameObject _player)
-	{
-		Destroy (_player);
-	}
+
+    public void KillPlayer(GameObject _player)
+    {
+        Destroy(_player);
+    }
 
     public void DisplayMessage(GameObject _gameobject)
     {

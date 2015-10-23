@@ -4,10 +4,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float Speed;
-//    public LayerMask mask;
-//    public GameObject interactedobject;
-    private float playerX;
-    private float playerY;
+    private int playerX;
+    private int playerY;
     private Animator anim;
     public Direction facingDirection;
 
@@ -24,8 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Movement()
     {
-        playerX = Input.GetAxisRaw("Horizontal");
-        playerY = Input.GetAxisRaw("Vertical");
+        playerX = (int)Input.GetAxisRaw("Horizontal");
+        playerY = (int)Input.GetAxisRaw("Vertical");
 
         if (playerX == 0 && playerY == 0)
         {
@@ -38,31 +36,21 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerY > 0 && playerX == 0)
         {
-            anim.SetFloat("PlayerX", 0);
-            anim.SetFloat("PlayerY", playerY);
-//            anim.SetBool("IsWalking", true);
             facingDirection = Direction.UP;
         }
 
         if (playerY < 0 && playerX == 0)
         {
-            anim.SetFloat("PlayerX", 0);
-            anim.SetFloat("PlayerY", playerY);
-//            anim.SetBool("IsWalking", true);
             facingDirection = Direction.DOWN;
         }
 
         if (playerX > 0 && playerY == 0)
         {
-            anim.SetFloat("PlayerX", playerX);
-            anim.SetFloat("PlayerY", 0);
-//            anim.SetBool("IsWalking", true);
             facingDirection = Direction.RIGHT;
         }
 
         if (playerX < 0 && playerY == 0)
         {
-//            anim.SetBool("IsWalking", true);
             facingDirection = Direction.LEFT;
         }
 
@@ -70,9 +58,7 @@ public class PlayerMovement : MonoBehaviour
         {
             switch (facingDirection)
             {
-//            case Direction.NONE:
-//                anim.SetBool("IsWalking", false);
-//                break;
+
                 case Direction.UP:
                     anim.SetFloat("PlayerX", 0);
                     anim.SetFloat("PlayerY", playerY);

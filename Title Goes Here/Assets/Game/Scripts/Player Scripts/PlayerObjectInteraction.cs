@@ -4,7 +4,6 @@ public class PlayerObjectInteraction : MonoBehaviour
 {
     public LayerMask interactionLayers;
 	private GameObject interacted_object;
-    private Direction facingDirection;
     private PlayerMovement playerMove;
     private Vector3 pos = Vector3.zero;
 
@@ -15,10 +14,6 @@ public class PlayerObjectInteraction : MonoBehaviour
 
     public void Update()
     {
-        if (facingDirection != playerMove.facingDirection)
-        {
-            facingDirection = playerMove.facingDirection;
-        }
         Interaction();
     }
 
@@ -26,19 +21,19 @@ public class PlayerObjectInteraction : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            if (facingDirection == Direction.UP)
+            if (playerMove.facingDirection == Direction.UP)
             {
                 pos = Vector3.up;
             }
-            if (facingDirection == Direction.DOWN)
+            if (playerMove.facingDirection == Direction.DOWN)
             {
                 pos = Vector3.down;
             }
-            if (facingDirection == Direction.RIGHT)
+            if (playerMove.facingDirection == Direction.RIGHT)
             {
                 pos = Vector3.right;
             }
-            if (facingDirection == Direction.LEFT)
+            if (playerMove.facingDirection == Direction.LEFT)
             {
                 pos = Vector3.left;
             }

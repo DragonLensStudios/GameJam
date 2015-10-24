@@ -1,0 +1,12 @@
+{
+  "$type": "TestJson, Assembly-CSharp",
+  "Name": "Super Name",
+  "ID": 5,
+  "StringList": {
+    "$type": "System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib",
+    "$values": [
+      "LOL",
+      "WOW"
+    ]
+  }
+}

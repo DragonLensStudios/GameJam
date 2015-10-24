@@ -15,6 +15,12 @@ namespace DustinHorne.Json.Examples
         public string json_name;
         public string json_filetype = ".json";
         public TextAsset json_asset;
+
+        public void Start()
+        {
+            Sample();
+        }
+
         public void Sample()
         {
             if (File.Exists("Assets/Resources/" + json_name + ".json") == false)
@@ -29,36 +35,44 @@ namespace DustinHorne.Json.Examples
                 json_asset = Resources.Load(json_name) as TextAsset;
             }
             //Create an object to serialize
-            //            var original = new JNSimpleObjectModel
-            //                {
-            //                    IntValue = 5,
-            //                    FloatValue = 4.98f,
-            //                    StringValue = "Simple Object",
-            //                    IntList = new List<int> { 4, 7, 25, 34 },
-            //                    ObjectType = JNObjectType.BaseClass
-            //                };
+//                        var original = new JNSimpleObjectModel
+//                            {
+//                                IntValue = 5,
+//                                FloatValue = 4.98f,
+//                                StringValue = "Simple Object",
+//                                IntList = new List<int> { 4, 7, 25, 34 },
+//                                ObjectType = JNObjectType.BaseClass
+//                            };
 
-            //            var original = new TestJson
-            //            {
-            //                ID = 5
-            //                
-            //            };
+                        var original = new TestJson
+                        {
+                            ID = 5
+                            
+                        };
 
             //This string is the JSON representation of the object
-//            var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+            var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
 
 //            string serialized = JsonConvert.SerializeObject(new TestJson2 {ID = 5, Name = "Super Name", StringList = new List<string> {"LOL","WOW"},SuperWoW = "OMG DUDE" },Formatting.Indented,settings);
-//            if (File.Exists("Assets/Game/Resources/Testjson.json") == false)
+            string serialized = JsonConvert.SerializeObject(new TestJson {ID = 5, Name = "Super Name", StringList = new List<string> {"LOL","WOW"} },Formatting.Indented,settings);
+
+            File.WriteAllText("Assets/Resources/" + json_name + ".json", serialized);
+
+//            if (File.Exists("Assets/Resources/" + json_name + ".json") == false)
 //            {
-//                File.Create("Assets/Game/Resources/Testjson.json");
+//                File.Create("Assets/Resources/" + json_name + ".json");
 //            }
+//          else
+//          {
+//              File.WriteAllText("Assets/Resources/" + json_name + ".json",serialized);
+//          }
 //            File.WriteAllText("Assets/Game/Resources/Testjson.json",serialized);
 
             //Now we can deserialize this string back into an object
 
 
 //            var newobject = JsonConvert.DeserializeObject<JNSimpleObjectModel>(serialized);
-//            var newobject = JsonConvert.DeserializeObject<TestJson>(serialized);
+            var newobject = JsonConvert.DeserializeObject<TestJson>(serialized,settings);
 
 //            var newobject = JsonConvert.DeserializeObject<TestJson2>(json_asset.text,settings);
 

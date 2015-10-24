@@ -6,14 +6,12 @@ using System.Collections.Generic;
 public class TextFileReader : MonoBehaviour
 {
     public TextAsset textFile;
-    public string xmlstuff;
     public string[] textLines;
     public List<DialogueContainer> Dialogues;
 
     void Awake()
     {
-        xmlstuff = textFile.text;
-//        FetchDialogue();
+        FetchDialogue();
     }
 
     public void FetchDialogue()

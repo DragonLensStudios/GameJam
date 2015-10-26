@@ -1,7 +1,4 @@
-﻿//using System;
-
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class TimeHandler : MonoBehaviour
@@ -12,8 +9,8 @@ public class TimeHandler : MonoBehaviour
 
     public bool timepassed;
 
-    public TimeContainer GameTime = new TimeContainer();
-    public TimeContainer ActionTime = new TimeContainer();
+    public TimeContainer GameTime;
+    public TimeContainer ActionTime;
 
     // Use this for initialization
     private void Start()
@@ -24,11 +21,39 @@ public class TimeHandler : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        GameTime.ValidateTime();
-        if (GameTime.CheckSecond(5))
-        {
-            Debug.Log("testing");
-        }
+        GameTime.StartTime();
+        ActionTime.StartTime();
+
+
+//        if (GameTime.CheckFullTime(hour:2) && GameTime.CheckSecond(0))
+//        {
+//            Debug.Log("Called!!");
+//
+//        }
+
+//        if (GameTime.CheckSecond(10) && GameTime.secondCheckBool == false)
+//        {
+//            Debug.Log((int)GameTime.Second + " Secs Passed");
+//            GameTime.secondCheckBool = true;
+//        }
+
+//        if (GameTime.CheckExactFullTime(hour:3))
+//        {
+//            Debug.Log("Called!!");
+//        }
+
+//        else
+//        {
+//            Debug.Log("This is false!");
+//            GameTime.ClearAllChecks();
+//        }
+//        if (GameTime.CheckFullTime(day: 1, hour: 5,minute: 30,second:0))
+//        {
+//            Debug.Log("testing new full time");
+//            GameTime.ClearAllChecks();
+//
+//        }
+
 //        if (GameTime.secondCheckBool == false && GameTime.CheckSecond(3))
 //        {
 //            Debug.Log("10 Sec Clocked!");
@@ -51,7 +76,7 @@ public class TimeHandler : MonoBehaviour
         //        }
         //        else
         //        {
-        //            ActionTime.ValidateTime();
+        //            ActionTime.StartTime();
         //        }
         //    }
 

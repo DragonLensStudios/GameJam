@@ -393,8 +393,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 399.600006, y: 195.199997}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 361.550018, y: 196}
+  m_SizeDelta: {x: 234.899994, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!222 &1054575728
 CanvasRenderer:
@@ -586,8 +586,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 399, y: 154.199997}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 290.750031, y: 161.100006}
+  m_SizeDelta: {x: 374.5, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!222 &1134919733
 CanvasRenderer:
@@ -924,51 +924,37 @@ MonoBehaviour:
   dayText: {fileID: 1737422793}
   timepassed: 0
   GameTime:
-    Year: 0
-    Month: 0
-    Week: 0
-    Day: 0
-    Hour: 2
-    Minute: 50
+    CurrentDay: 1
+    CurrentMonth: 1
+    Year: 1
+    Month: 1
+    Week: 1
+    Day: 1
+    Hour: 1
+    Minute: 0
     Second: 0
     TimeScale: 60
     SecondsInMinute: 60
     MinutesInHour: 60
     HoursInDay: 24
-    DaysInWeek: 7
-    WeeksInMonth: 4
+    DaysInMonth: 30
     MonthsInYear: 12
-    secondCheckBool: 0
-    minuteCheckBool: 0
-    hourCheckBool: 0
-    dayCheckBool: 0
-    weekCheckBool: 0
-    monthCheckBool: 0
-    yearCheckBool: 0
-    fulltimeCheckBool: 0
-  ActionTime:
-    Year: 0
-    Month: 0
-    Week: 0
-    Day: 0
-    Hour: 0
+  ActionTime723:
+    CurrentDay: 1
+    CurrentMonth: 11
+    Year: 1
+    Month: 11
+    Week: 1
+    Day: 1
+    Hour: 1
     Minute: 0
     Second: 0
     TimeScale: 1
     SecondsInMinute: 60
     MinutesInHour: 60
     HoursInDay: 24
-    DaysInWeek: 7
-    WeeksInMonth: 4
+    DaysInMonth: 30
     MonthsInYear: 12
-    secondCheckBool: 0
-    minuteCheckBool: 0
-    hourCheckBool: 0
-    dayCheckBool: 0
-    weekCheckBool: 0
-    monthCheckBool: 0
-    yearCheckBool: 0
-    fulltimeCheckBool: 0
 --- !u!1 &1623481516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,7 +1112,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 239.599991, y: 196}
+  m_AnchoredPosition: {x: 164.100006, y: 196.000015}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!222 &1737422795

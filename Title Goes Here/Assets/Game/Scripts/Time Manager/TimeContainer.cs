@@ -1,4 +1,7 @@
-﻿/// <summary>
+﻿using System.Diagnostics;
+using Mono.Cecil;
+
+/// <summary>
 /// This is the Time Container class, This class holds time variables and methods used for custom timers and custom clocks.
 /// </summary>
 [System.Serializable]
@@ -97,24 +100,77 @@ public class TimeContainer
         ValidateTime();
     }
 
+    public virtual void ReverseTime()
+    {
+        Second -= UnityEngine.Time.deltaTime * TimeScale;
+        ValidateTime();
+    }
     /// <summary>
     /// This method checks the time counting to make sure that after 60 seconds 1 minute is added (by default) and 60 Minutes adds 1 hour, etc etc.
     /// </summary>
     public virtual void ValidateTime()
     {
-        Month = (int)CurrentMonth;
+        if ((int)Second < 0 && Minute >= 0)
+        {
+            Minute--;
+            Second = SecondsInMinute - 1;
+        }
+        else if (Minute < 0 && Hour > 0)
+        {
+            Hour--;
+            Minute = MinutesInHour - 1;
+            Second = SecondsInMinute - 1;
+        }
+        else if (Hour < 1 && Day > 0)
+        {
+            Day--;
+            if (CurrentDay == Days.Monday)
+            {
+                CurrentDay = Days.Sunday;
+                Week--;
+            }
+            else
+            {
+                CurrentDay--;
+            }
+            Hour = HoursInDay - 1;
+            Minute = MinutesInHour - 1;
+            Second = SecondsInMinute - 1;
+        }
+        else if (Day <= 0 && Month > 0)
+        {
+            Month--;
+            CurrentMonth--;
+            Day = DaysInMonth;
+            CurrentDay = Days.Sunday;
+            Hour = HoursInDay - 1;
+            Minute = MinutesInHour - 1;
+            Second = SecondsInMinute - 1;
+        }
+        else if (Month < 1 && Year > 0)
+        {
+            Year--;
+            Month = MonthsInYear;
+            Day = DaysInMonth;
+            CurrentDay = Days.Sunday;
+            Hour = HoursInDay - 1;
+            Minute = MinutesInHour - 1;
+            Second = SecondsInMinute - 1;
+        }
+
+        CurrentMonth = (Months)Month;
 
         if (Second >= SecondsInMinute)
         {
             Second = 0;
             Minute++;
         }
-        if (Minute >= MinutesInHour)
+        else if(Minute >= MinutesInHour)
         {
             Minute = 0;
-            Hour++;
+            Hour++;            
         }
-        if (Hour >= HoursInDay)
+        else if (Hour >= HoursInDay)
         {
             Hour = 1;
             if (CurrentDay == Days.Sunday)
@@ -127,10 +183,8 @@ public class TimeContainer
                 CurrentDay++;
             }
             Day++;
-
         }
-
-        if (Day > DaysInMonth )
+        else if (Day > DaysInMonth)
         {
             Week = 1;
             Day = 1;
@@ -144,11 +198,59 @@ public class TimeContainer
             }
             Month++;
         }
-        if (Month > MonthsInYear)
+        else if (Month > MonthsInYear)
         {
             Month = 1;
             Year++;
         }
+
+
+
+        //        if (Minute >= MinutesInHour)
+        //        {
+        //            Minute = 0;
+        //            Hour++;
+        //        }
+        //        if (Hour >= HoursInDay)
+        //        {
+//                    Hour = 1;
+//                    if (CurrentDay == Days.Sunday)
+//                    {
+//                        CurrentDay = Days.Monday;
+//                        Week++;
+//                    }
+//                    else
+//                    {
+//                        CurrentDay++;
+//                    }
+//                    Day++;
+        //
+        //        }
+        //
+        //        if (Day > DaysInMonth )
+        //        {
+//                    Week = 1;
+//                    Day = 1;
+//                    if (CurrentMonth == Months.December)
+//                    {
+//                        CurrentMonth = Months.January;
+//                    }
+//                    else
+//                    {
+//                        CurrentMonth++;
+//                    }
+//                    Month++;
+        //        }
+        //        if (Month > MonthsInYear)
+        //        {
+//                    Month = 1;
+//                    Year++;
+        //        }
+
+    }
+
+    public virtual void ValidateTimeAgain()
+    {
 
     }
 
@@ -350,6 +452,19 @@ public class TimeContainer
         var timestring = System.String.Format("{0}:{1:00}:{2:00} {3}/{4}/{5}", Hour, Minute, Second, Month, Day, Year);
         return timestring;
         
+    }
+
+    public virtual void ResetTime()
+    {
+        CurrentDay = Days.Monday;
+        CurrentMonth = Months.January;
+        Year = 1;
+        Month = 1;
+        Week = 1;
+        Day = 1;
+        Hour = 1;
+        Minute = 0;
+        Second = 0;
     }
 }
 

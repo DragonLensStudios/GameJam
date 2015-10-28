@@ -2,5 +2,5 @@
 [System.Serializable]
 public class InteractEvent : UnityEvent
 {
-
+    
 }

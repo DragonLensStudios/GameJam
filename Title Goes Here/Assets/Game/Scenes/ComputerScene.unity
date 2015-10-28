@@ -391,10 +391,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1623481520}
   m_RootOrder: 1
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 361.550018, y: 196}
-  m_SizeDelta: {x: 234.899994, y: 30}
+  m_AnchorMin: {x: .718907595, y: .922279775}
+  m_AnchorMax: {x: 1.00090039, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
 --- !u!222 &1054575728
 CanvasRenderer:
@@ -584,10 +584,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1623481520}
   m_RootOrder: 2
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 290.750031, y: 161.100006}
-  m_SizeDelta: {x: 374.5, y: 30}
+  m_AnchorMin: {x: .550420165, y: .818652868}
+  m_AnchorMax: {x: 1, y: .896373034}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
 --- !u!222 &1134919733
 CanvasRenderer:
@@ -939,17 +939,33 @@ MonoBehaviour:
     HoursInDay: 24
     DaysInMonth: 30
     MonthsInYear: 12
-  ActionTime723:
+  RealTime:
     CurrentDay: 1
-    CurrentMonth: 11
+    CurrentMonth: 1
     Year: 1
-    Month: 11
+    Month: 1
     Week: 1
     Day: 1
     Hour: 1
     Minute: 0
     Second: 0
     TimeScale: 1
+    SecondsInMinute: 60
+    MinutesInHour: 60
+    HoursInDay: 24
+    DaysInMonth: 30
+    MonthsInYear: 12
+  testaction2:
+    CurrentDay: 3
+    CurrentMonth: 2
+    Year: 2
+    Month: 2
+    Week: 5
+    Day: 30
+    Hour: 0
+    Minute: 0
+    Second: 0
+    TimeScale: 60
     SecondsInMinute: 60
     MinutesInHour: 60
     HoursInDay: 24
@@ -1110,10 +1126,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1623481520}
   m_RootOrder: 0
-  m_AnchorMin: {x: .5, y: .5}
-  m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 164.100006, y: 196.000015}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchorMin: {x: .526830673, y: .922279775}
+  m_AnchorMax: {x: .718907535, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
 --- !u!222 &1737422795
 CanvasRenderer:

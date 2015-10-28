@@ -11,13 +11,23 @@ public class TimeHandler : MonoBehaviour
 
     public TimeContainer GameTime = new TimeContainer(timescale:60);
     public TimeContainer RealTime = new TimeContainer();
+    public TimeContainer testaction2 = new TimeContainer(hour:3,minute:0, timescale: 60);
     // Update is called once per frame
     void Update()
     {
-        
+        if (testaction2.CheckTime(hour: 1,minute: 0, second: 0))
+        {
+            Debug.Log("This works!");
+        }
+        else
+        {
+            testaction2.ReverseTime();
+        }
+
         SetRealTime();
         GameTime.StartTime();
         textTime.text = GameTime.GetTimeString();
+        textTime2.text = testaction2.GetTimeString();
 
         if (GameTime.CheckTime(year: 1, month: 1, day: 26))
         {

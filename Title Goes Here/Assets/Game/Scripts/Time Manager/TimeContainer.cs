@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-/// <summary>
+﻿/// <summary>
 /// This is the Time Container class, This class holds time variables and methods used for custom timers and custom clocks.
 /// </summary>
 [System.Serializable]
@@ -95,7 +93,7 @@ public class TimeContainer
     /// <returns></returns>
     public virtual void StartTime()
     {
-        Second += Time.deltaTime * TimeScale;
+        Second += UnityEngine.Time.deltaTime * TimeScale;
         ValidateTime();
     }
 
@@ -146,7 +144,7 @@ public class TimeContainer
             }
             Month++;
         }
-        if (Month >= MonthsInYear)
+        if (Month > MonthsInYear)
         {
             Month = 1;
             Year++;
@@ -351,6 +349,7 @@ public class TimeContainer
     {
         var timestring = System.String.Format("{0}:{1:00}:{2:00} {3}/{4}/{5}", Hour, Minute, Second, Month, Day, Year);
         return timestring;
+        
     }
 }
 

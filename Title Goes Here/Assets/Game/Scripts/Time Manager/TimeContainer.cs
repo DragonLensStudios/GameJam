@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using Mono.Cecil;
-
-/// <summary>
+﻿/// <summary>
 /// This is the Time Container class, This class holds time variables and methods used for custom timers and custom clocks.
 /// </summary>
 [System.Serializable]
@@ -13,7 +10,7 @@ public class TimeContainer
     public int Month = 1;
     public int Week = 1;
     public int Day = 1;
-    public int Hour = 1;
+    public int Hour = 0;
     public int Minute = 0;
     public float Second = 0;
     public float TimeScale = 1;
@@ -49,7 +46,7 @@ public class TimeContainer
         int month = 1,
         int week = 1,
         int day = 1,
-        int hour = 1,
+        int hour = 0,
         int minute = 0,
         float second = 0,
         float timescale = 1,
@@ -115,13 +112,13 @@ public class TimeContainer
             Minute--;
             Second = SecondsInMinute - 1;
         }
-        else if (Minute < 0 && Hour > 0)
+        else if (Minute < 0 && Hour >= 0)
         {
             Hour--;
             Minute = MinutesInHour - 1;
             Second = SecondsInMinute - 1;
         }
-        else if (Hour < 1 && Day > 0)
+        else if (Hour < 0 && Day > 0)
         {
             Day--;
             if (CurrentDay == Days.Monday)
@@ -172,7 +169,7 @@ public class TimeContainer
         }
         else if (Hour >= HoursInDay)
         {
-            Hour = 1;
+            Hour = 0;
             if (CurrentDay == Days.Sunday)
             {
                 CurrentDay = Days.Monday;
@@ -249,11 +246,6 @@ public class TimeContainer
 
     }
 
-    public virtual void ValidateTimeAgain()
-    {
-
-    }
-
     /// <summary>
     /// This will check the time provided and return true or false based on the check. This has optional parameters that can be called like this
     /// EXAMPLE: CheckFullTIme(day:5,minute:30); - This will check to make sure Day 5 and 30 Minutes is true and execute.
@@ -267,7 +259,7 @@ public class TimeContainer
     /// <param name="minute"></param>
     /// <param name="second"></param>
     /// <returns></returns>
-    public virtual bool CheckTime(int year =1, int month = -1, int week = -1,int day = -1, int hour = -1, int minute = -1, int second = -1)
+    public virtual bool CheckTime(int year = -1, int month = -1, int week = -1, int day = -1, int hour = -1, int minute = -1, int second = -1)
     {
         bool yearchecked = Year == year;
         bool monthchecked = Month == month;
@@ -462,7 +454,7 @@ public class TimeContainer
         Month = 1;
         Week = 1;
         Day = 1;
-        Hour = 1;
+        Hour = 0;
         Minute = 0;
         Second = 0;
     }

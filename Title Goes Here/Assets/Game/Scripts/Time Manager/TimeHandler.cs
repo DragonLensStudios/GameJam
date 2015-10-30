@@ -6,6 +6,8 @@ public class TimeHandler : MonoBehaviour
     public Text GameTimeText;
     public Text GameTimeLimitText;
 
+    public Text RealTimeCounterText;
+
     public Text TotalScoreText;
     public Text AudioTimerText;
     public Text EngineTimerText;
@@ -27,86 +29,103 @@ public class TimeHandler : MonoBehaviour
 //    public bool timepassed;
 
     public StarScoreSystem ScoreSystem;
-
     public TimeContainer GameTime = new TimeContainer(timescale:60);
-    public TimeContainer GameTimeLimit = new TimeContainer(day: 2, hour: 23, minute: 59,timescale:60);
-    public TimeContainer RealTime = new TimeContainer();
+    public TimeContainer GameTimeLimit = new TimeContainer(day: 4, hour: 0 , minute: 10,timescale:60);
+    public TimeContainer RealTime = new TimeContainer(minute:15);
     public TimeContainer ProcrastinationTime = new TimeContainer(timescale:60);
 //    public TimeContainer testaction2 = new TimeContainer(hour:3,minute:0, timescale: 60);
 
+
+    public void Start()
+    {
+
+    }
     // Update is called once per frame
     void Update()
     {
-        SetRealTime();
-        GameTime.StartTime();
-        GameTimeLimit.ReverseTime();
+//        GameTime.StartTime();
+        //        SetRealTime();
+        RealTime.ReverseTime();
+        GameTime.StartTime(TimeType.Minute);
+        //        GameTimeLimit.ReverseTime(TimeType.Minute);
 
-        if (CurrentGameState != GameState.PROCRASTINATION && randomengaged == false)
+        //        if (CurrentGameState != GameState.PROCRASTINATION && randomengaged == false)
+        //        {
+        //            randomtime = Random.Range(10, 30) % 60;
+        //            randomengaged = true;
+        //        }
+        //
+        //        if (randomengaged && GameTime.CheckTime(minute:randomtime))
+        //        {
+        //            CurrentGameState = GameState.PROCRASTINATION;
+        //            randomengaged = false;
+        //        }
+
+        //        if (CurrentGameState == GameState.PAUSED || RealTime.CheckTime(minute:14,second:0))
+        //        {
+        //            Time.timeScale = 0;
+        //        }
+        //        else
+        //        {
+        //            Time.timeScale = 1;
+        //        }
+
+        if (CurrentGameState == GameState.PAUSED)
         {
-            randomtime = Random.Range(10, 30) % 60;
-            randomengaged = true;
+            Time.timeScale = 0;
         }
-
-        if (randomengaged && GameTime.CheckTime(minute:randomtime))
+        else
         {
-            CurrentGameState = GameState.PROCRASTINATION;
-            randomengaged = false;
+            Time.timeScale = 1;
         }
 
         switch (CurrentGameState)
         {
             case GameState.PAUSED:
-                Time.timeScale = 0;
                 CurrentTaskText.text = "PAUSED!";
                 break;
             case GameState.PROCRASTINATION:
-                Time.timeScale = 1;
-                ProcrastinationTime.StartTime();
+                ProcrastinationTime.StartTime(TimeType.Minute);
                 CurrentTaskText.text = "Procrastinating!";
                 break;
             case GameState.WORK_ON_AUDIO:
-                Time.timeScale = 1;
                 ScoreSystem.Audio.ProgressScore();
                 CurrentTaskText.text = "Working On Audio!";
                 if (ScoreSystem.Audio.Score < 5)
                 {
-                    ScoreSystem.Audio.Time.StartTime();
+                    ScoreSystem.Audio.Time.StartTime(TimeType.Minute);
                 }
                 break;
             case GameState.WORK_ON_ENGINE:
-                Time.timeScale = 1;
                 CurrentTaskText.text = "Working On Engine!";
                 ScoreSystem.Engine.ProgressScore();
                 if (ScoreSystem.Engine.Score < 5)
                 {
-                    ScoreSystem.Engine.Time.StartTime();
+                    ScoreSystem.Engine.Time.StartTime(TimeType.Minute);
                 }
                 break;
             case GameState.WORK_ON_GAMEPLAY:
-                Time.timeScale = 1;
                 CurrentTaskText.text = "Working On Gameplay!";
                 ScoreSystem.Gameplay.ProgressScore();
                 if (ScoreSystem.Gameplay.Score < 5)
                 {
-                    ScoreSystem.Gameplay.Time.StartTime();
+                    ScoreSystem.Gameplay.Time.StartTime(TimeType.Minute);
                 }
                 break;
             case GameState.WORK_ON_GRAPHICS:
-                Time.timeScale = 1;
                 CurrentTaskText.text = "Working On Graphics!";
                 ScoreSystem.Graphics.ProgressScore();
                 if (ScoreSystem.Graphics.Score < 5)
                 {
-                    ScoreSystem.Graphics.Time.StartTime();
+                    ScoreSystem.Graphics.Time.StartTime(TimeType.Minute);
                 }
                 break;
             case GameState.WORK_ON_STORY:
-                Time.timeScale = 1;
                 CurrentTaskText.text = "Working On Story!";
                 ScoreSystem.Story.ProgressScore();
                 if (ScoreSystem.Story.Score < 5)
                 {
-                    ScoreSystem.Story.Time.StartTime();
+                    ScoreSystem.Story.Time.StartTime(TimeType.Minute);
                 }
                 break;
         }
@@ -118,20 +137,22 @@ public class TimeHandler : MonoBehaviour
         //            ScoreSystem.Audio.Time.StartTime();
         //            if (ScoreSystem.Audio.ProgressScore())
         //            {
-        ////                textTime2.text = "Audio SCORE INCREASED! : " + ScoreSystem.Audio.Score;
+        //                textTime2.text = "Audio SCORE INCREASED! : " + ScoreSystem.Audio.Score;
         //            }
         //        }
 
         TotalScoreText.text = "Total Score: " + ScoreSystem.TotalScore;
 
-        GameTimeText.text = "Game Time: " + GameTime.GetTimeString();
-        AudioTimerText.text = "Audio Feature: " + ScoreSystem.Audio.Time.GetTimeString() + " Score: " + ScoreSystem.Audio.Score;
+        GameTimeText.text =   "Day " + GameTime.Day + " Game Time: "+ GameTime.GetTimeString();
+        AudioTimerText.text = System.String.Format("Audio Feature: {0}:{1:00} Score: {2}", ScoreSystem.Audio.Time.Hour,ScoreSystem.Audio.Time.Minute, ScoreSystem.Audio.Score);
+//        AudioTimerText.text = "Audio Feature: " + ScoreSystem.Audio.Time.GetTimeString() + " Score: " + ScoreSystem.Audio.Score;
         EngineTimerText.text = "Engine Feature: " + ScoreSystem.Engine.Time.GetTimeString() + " Score: " + ScoreSystem.Engine.Score;
         GameplayTimerText.text = "Gameplay Feature: " + ScoreSystem.Gameplay.Time.GetTimeString() + " Score: " + ScoreSystem.Gameplay.Score;
         GraphicsTimerText.text = "Graphics Feature: " + ScoreSystem.Graphics.Time.GetTimeString() + " Score: " + ScoreSystem.Graphics.Score;
         StoryTimerText.text = "Story Feature: " + ScoreSystem.Story.Time.GetTimeString() + " Score: " + ScoreSystem.Story.Score;
         ProcrastinationTimerText.text = "Procrastination Timer: " + ProcrastinationTime.GetTimeString();
         GameTimeLimitText.text = "DAYS LEFT: " + GameTimeLimit.Day + "  Time Left: " + GameTimeLimit.GetTimeString();
+        RealTimeCounterText.text = "REAL TIME: " + RealTime.GetTimeString();
 
 
         //        if (testaction2.CheckTime(hour: 1,minute: 0, second: 0))

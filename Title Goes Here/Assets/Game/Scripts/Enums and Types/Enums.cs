@@ -43,3 +43,14 @@ public enum GameState
     WORK_ON_GRAPHICS = 5,
     WORK_ON_STORY = 6
 }
+
+public enum TimeType
+{
+    Second,
+    Minute,
+    Hour,
+    Day,
+    Week,
+    Month,
+    Year
+}

@@ -9,7 +9,6 @@ public class StarScoreSystem
     public GameFeature Graphics = new GameFeature("Graphics");
     public GameFeature Story = new GameFeature("Story");
 
-
     public void TotalScoreCalc()
     {
         TotalScore = Audio.Score + Engine.Score + Gameplay.Score + Graphics.Score + Story.Score;

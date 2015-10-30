@@ -8,24 +8,45 @@ public class TimeContainer
 {
     public Days CurrentDay = Days.Monday;
     public Months CurrentMonth = Months.January;
-    public int Year = 1;
-    public int Month = 1;
-    public int Week = 1;
-    public int Day = 1;
-    public int Hour = 1;
-    public int Minute = 0;
+    public string TimeString_H_MM_SS_MM_DD_YYYY;
+    public string TimeString_H_MM_SS;
+    public string TimeString_H_MM;
+
+    public float totaltimesec;
+
+    public float Year = 1;
+    public float Month = 1;
+    public float Week = 1;
+    public float Day = 1;
+    public float Hour = 0;
+    public float Minute = 0;
     public float Second = 0;
     public float TimeScale = 1;
     public int SecondsInMinute = 60;
     public int MinutesInHour = 60;
     public int HoursInDay = 24;
+    public int DaysInWeek = 7;
     public int DaysInMonth = 30;
     public int MonthsInYear = 12;
+
+    public float TotalTimeSeconds
+    {
+        get
+        {
+            var _output = Year;
+            _output = (_output*MonthsInYear) + Month;
+            _output = (_output * DaysInMonth) + Day;
+            _output = (_output * HoursInDay) + Hour;
+            _output = (_output * MinutesInHour) + Minute;
+            _output = (_output * SecondsInMinute) + Second;
+            return _output;
+        }
+    }
 
     /// <summary>
     /// <para>This is class is responsible for being used as a container for a custom timer, you can Initialize optional variables for this time class.</para>
     /// <para>You can set values for example like so: [EXAMPLE: new TimeContainer(timescale: 60, day: 5, currentday: Days.Monday)] This will set the timescale to 60 and the day count to 5 and the currentday to Monday</para>
-    /// <para>You can set the Following Values: Year, Month, Week, Day, Hour, Minute, Second, Time, SecondsInMinute, MinutesInHour, HoursInDay, DaysInMonth, MonthsInYear, CurrentDay, CurrentMonth if you do not set any of these values they will retain their default values.</para>
+    /// <para>You can set the Following Values: Year, Month, Week, Day, Hour, Minute, Second, Time, SecondsInMinute, MinutesInHour, HoursInDay, DaysInWeek, DaysInMonth, MonthsInYear, CurrentDay, CurrentMonth if you do not set any of these values they will retain their default values.</para>
     /// </summary>
     /// <param name="year"></param>
     /// <param name="month"></param>
@@ -38,6 +59,7 @@ public class TimeContainer
     /// <param name="secondsInMinute"></param>
     /// <param name="minutesinhour"></param>
     /// <param name="hoursinday"></param>
+    /// <param name="daysinweek"></param>
     /// <param name="daysinmonth"></param>
     /// <param name="monthsinyear"></param>
     /// <param name="currentday"></param>
@@ -48,13 +70,14 @@ public class TimeContainer
         int month = 1,
         int week = 1,
         int day = 1,
-        int hour = 1,
+        int hour = 0,
         int minute = 0,
         float second = 0,
         float timescale = 1,
         int secondsInMinute = 60,
         int minutesinhour = 60,
         int hoursinday = 24,
+        int daysinweek = 7,
         int daysinmonth = 30,
         int monthsinyear = 12,
         Days currentday = Days.Monday,
@@ -71,6 +94,7 @@ public class TimeContainer
         SecondsInMinute = secondsInMinute;
         MinutesInHour = minutesinhour;
         HoursInDay = hoursinday;
+        DaysInWeek = daysinweek;
         DaysInMonth = daysinmonth;
         MonthsInYear = monthsinyear;
         CurrentDay = currentday;
@@ -93,9 +117,62 @@ public class TimeContainer
     /// (Must be called in Update for the Time to be properly set.)
     /// </summary>
     /// <returns></returns>
-    public virtual void StartTime()
+    public virtual void StartTime(TimeType timetype = TimeType.Second)
     {
-        Second += Time.deltaTime * TimeScale;
+        switch (timetype)
+        {
+            case TimeType.Second:
+                Second += UnityEngine.Time.deltaTime * TimeScale;
+                break;
+            case TimeType.Minute:
+                Minute += UnityEngine.Time.deltaTime * TimeScale;
+                break;
+            case TimeType.Hour:
+                Hour += UnityEngine.Time.deltaTime * TimeScale;
+                break;
+            case TimeType.Day:
+                Day += UnityEngine.Time.deltaTime * TimeScale;
+                break;
+            case TimeType.Week:
+                Week += UnityEngine.Time.deltaTime * TimeScale;
+                break;
+            case TimeType.Month:
+                Month += UnityEngine.Time.deltaTime * TimeScale;
+                break;
+            case TimeType.Year:
+                Year += UnityEngine.Time.deltaTime * TimeScale;
+                break;
+        }
+//        UnityEngine.Debug.Log(System.String.Format("Sec: {0} Min: {1} Hour: {2} Day: {3} Week: {4} Month: {5} Year: {6}", Second,Minute, Hour, Day, Week, Month, Year));
+        ValidateTime();
+    }
+
+    public virtual void ReverseTime(TimeType timetype = TimeType.Second)
+    {
+        switch (timetype)
+        {
+            case TimeType.Second:
+                Second -= UnityEngine.Time.deltaTime * TimeScale;
+                break;
+            case TimeType.Minute:
+                Minute -= UnityEngine.Time.deltaTime * TimeScale;
+                break;
+            case TimeType.Hour:
+                Hour -= UnityEngine.Time.deltaTime * TimeScale;
+                break;
+            case TimeType.Day:
+                Day -= UnityEngine.Time.deltaTime * TimeScale;
+                break;
+            case TimeType.Week:
+                Week -= UnityEngine.Time.deltaTime * TimeScale;
+                break;
+            case TimeType.Month:
+                Month -= UnityEngine.Time.deltaTime * TimeScale;
+                break;
+            case TimeType.Year:
+                Year -= UnityEngine.Time.deltaTime * TimeScale;
+                break;
+        }
         ValidateTime();
     }
 
@@ -104,53 +181,84 @@ public class TimeContainer
     /// </summary>
     public virtual void ValidateTime()
     {
-        Month = (int)CurrentMonth;
+        if ((int)Second < 0 && Minute >= 0)
+        {
+            Minute--;
+            Second += SecondsInMinute;
+        }
 
-        if (Second >= SecondsInMinute)
+        if ((int)Minute < 0 && Hour >= 0)
         {
-            Second = 0;
+            Hour--;
+            Minute += MinutesInHour;
+        }
+
+        if ((int)Hour < 0 && Day >= 1)
+        {
+            Day--;
+            if (CurrentDay == Days.Monday)
+            {
+                CurrentDay = Days.Sunday;
+            }
+            else
+            {
+                CurrentDay--;
+            }
+            CurrentDay--;
+            Hour += HoursInDay;
+        }
+
+        if ((int)Day < 1 && Month >= 1)
+        {
+            Month--;
+            Day = DaysInMonth;
+        }
+
+        if ((int)Month < 1 && (int)Year > 0)
+        {
+            Year--;
+            Month = MonthsInYear;
+        }
+
+        if ((int)Second + 1> SecondsInMinute)
+        {
             Minute++;
+            Second = 0;
         }
-        if (Minute >= MinutesInHour)
+        if ((int)Minute + 1 > MinutesInHour)
         {
-            Minute = 0;
             Hour++;
+            Minute = 0;
         }
-        if (Hour >= HoursInDay)
+        if ((int)Hour >= HoursInDay)
         {
-            Hour = 1;
+            Day++;
             if (CurrentDay == Days.Sunday)
             {
                 CurrentDay = Days.Monday;
-                Week++;
             }
             else
             {
                 CurrentDay++;
             }
-            Day++;
-
+            Hour = 0;
         }
-
-        if (Day > DaysInMonth )
+        if ((int)Day > DaysInMonth)
         {
-            Week = 1;
-            Day = 1;
-            if (CurrentMonth == Months.December)
-            {
-                CurrentMonth = Months.January;
-            }
-            else
-            {
-                CurrentMonth++;
-            }
             Month++;
+            Day = 1;
         }
-        if (Month >= MonthsInYear)
+        if ((int)Month > MonthsInYear)
         {
-            Month = 1;
             Year++;
+            Month = 1;
         }
+
+        Week = (int)(Day / DaysInWeek) + 1;
+        CurrentMonth = (Months) Month;
+        TimeString_H_MM_SS_MM_DD_YYYY = System.String.Format("{0}:{1:00}:{2:00} {3}/{4}/{5}", (int)Hour % HoursInDay, (int)Minute % MinutesInHour, (int)Second % SecondsInMinute, Month, Day, Year);
+        TimeString_H_MM_SS = System.String.Format("{0}:{1:00}:{2:00}", (int)Hour % HoursInDay, (int)Minute % MinutesInHour, (int)Second % SecondsInMinute);
+        TimeString_H_MM = System.String.Format("{0}:{1:00}", (int)Hour % HoursInDay, (int)Minute % MinutesInHour);
 
     }
 
@@ -167,15 +275,15 @@ public class TimeContainer
     /// <param name="minute"></param>
     /// <param name="second"></param>
     /// <returns></returns>
-    public virtual bool CheckTime(int year =1, int month = -1, int week = -1,int day = -1, int hour = -1, int minute = -1, int second = -1)
+    public virtual bool CheckTime(int year = -1, int month = -1, int week = -1, int day = -1, int hour = -1, int minute = -1, int second = -1)
     {
-        bool yearchecked = Year == year;
-        bool monthchecked = Month == month;
-        bool weekchecked = Week == week;
-        bool daychecked = Day == day;
-        bool hourchecked = Hour == hour;
-        bool minutechecked = Minute == minute;
-        bool secondchecked = (int)Second == second;
+        bool yearchecked = (int)Year == year;
+        bool monthchecked = (int)Month == month;
+        bool weekchecked = (int)Week == week;
+        bool daychecked = (int)Day == day;
+        bool hourchecked = (int)Hour == hour;
+        bool minutechecked = (int) Minute == minute;
+        bool secondchecked = (int) Second == second;
 
         if (year == -1)
         {
@@ -205,10 +313,10 @@ public class TimeContainer
         {
             secondchecked = true;
         }
-            if (yearchecked && monthchecked && weekchecked && daychecked && hourchecked && minutechecked && secondchecked)
-            {
-                return true;
-            }
+        if (yearchecked && monthchecked && weekchecked && daychecked && hourchecked && minutechecked && secondchecked)
+        {
+            return true;
+        }
 
         return false;
     }
@@ -221,12 +329,13 @@ public class TimeContainer
     /// <returns></returns>
     public bool CheckExactTime(int second)
     {
-        if ((int)Second == second)
+        if ((int) Second == second)
         {
             return true;
         }
         return false;
     }
+
     /// <summary>
     /// <para>Checks the Exact Minute, Second.</para>
     /// Returns True if the time has been reached otherwise returns False.
@@ -236,12 +345,13 @@ public class TimeContainer
     /// <returns></returns>
     public bool CheckExactTime(int minute, int second)
     {
-        if (Minute == minute && (int)Second == second)
+        if (Minute == minute && (int) Second == second)
         {
             return true;
         }
         return false;
     }
+
     /// <summary>
     /// <para>Checks the Exact Hour, Minute, Second.</para>
     /// Returns True if the time has been reached otherwise returns False.
@@ -252,12 +362,13 @@ public class TimeContainer
     /// <returns>test</returns>
     public bool CheckExactTime(int hour, int minute, int second)
     {
-            if (Hour == hour && Minute == minute && (int)Second == second)
-            {
-                return true;
-            }        
+        if (Hour == hour && Minute == minute && (int) Second == second)
+        {
+            return true;
+        }
         return false;
     }
+
     /// <summary>
     /// <para>Checks the Exact Day, Hour, Minute, Second.</para>
     /// Returns True if the time has been reached otherwise returns False.
@@ -269,12 +380,13 @@ public class TimeContainer
     /// <returns></returns>
     public bool CheckExactTime(int day, int hour, int minute, int second)
     {
-        if (Day == day && Hour == hour && Minute == minute && (int)Second == second)
+        if (Day == day && Hour == hour && Minute == minute && (int) Second == second)
         {
             return true;
         }
         return false;
     }
+
     /// <summary>
     /// <para>Checks the Exact Week, Day, Hour, Minute, Second.</para>
     /// Returns True if the time has been reached otherwise returns False.
@@ -287,12 +399,13 @@ public class TimeContainer
     /// <returns></returns>
     public bool CheckExactTime(int week, int day, int hour, int minute, int second)
     {
-        if (Week == week && Day == day && Hour == hour && Minute == minute && (int)Second == second)
+        if (Week == week && Day == day && Hour == hour && Minute == minute && (int) Second == second)
         {
             return true;
         }
         return false;
     }
+
     /// <summary>
     /// <para>Checks the Exact Month, Week, Day, Hour, Minute, Second.</para>
     /// Returns True if the time has been reached otherwise returns False.
@@ -306,12 +419,13 @@ public class TimeContainer
     /// <returns></returns>
     public bool CheckExactTime(int month, int week, int day, int hour, int minute, int second)
     {
-        if (Month == month && Week == week && Day == day && Hour == hour && Minute == minute && (int)Second == second)
+        if (Month == month && Week == week && Day == day && Hour == hour && Minute == minute && (int) Second == second)
         {
             return true;
         }
         return false;
     }
+
     /// <summary>
     /// <para>Checks the Exact Year, Month, Week, Day, Hour, Minute, Second.</para>
     /// Returns True if the time has been reached otherwise returns False.
@@ -326,31 +440,74 @@ public class TimeContainer
     /// <returns></returns>
     public bool CheckExactTime(int year, int month, int week, int day, int hour, int minute, int second)
     {
-        if (Month == month && Week == week && Day == day && Hour == hour && Minute == minute && (int)Second == second)
+        if (Month == month && Week == week && Day == day && Hour == hour && Minute == minute && (int) Second == second)
         {
             return true;
         }
         return false;
     }
-    /// <summary>
-    /// <para>Returns a time string formatted like: H:MM:SS  [EXAMPLE: 2:15:30 12/25/2015]</para>
-    /// This returns a string containing Hour, Minute, Second  
-    /// </summary>
-    /// <returns></returns>
-    public virtual string GetTimeString()
-    {
-        return System.String.Format("{0}:{1:00}:{2:00}", Hour, Minute, Second);
-    }
 
-    /// <summary>
-    /// <para>Returns a time string formatted like: H:MM:SS M/D/Y [EXAMPLE: 2:15:30 12/25/2015] </para>
-    /// This returns a string containing Year, Month, Day, Hour, Minute, Second
-    /// </summary>
-    /// <returns></returns>
-    public virtual string GetFullTimeString()
+//    /// <summary>
+//    /// <para>Returns a time string formatted like: H:MM:SS  [EXAMPLE: 2:15:30 12/25/2015]</para>
+//    /// This returns a string containing Hour, Minute, Second  
+//    /// </summary>
+//    /// <returns></returns>
+//    public virtual string GetTimeString()
+//    {
+////        var min = 0;
+////        var sec = 0;
+////        if ((int)Minute == 60)
+////        {
+////            min = 0;
+////        }
+////        else
+////        {
+////            min = (int) Minute;
+////        }
+////
+////        if ((int)Second == 60)
+////        {
+////            sec = 0;
+////        }
+////        else
+////        {
+////            sec = (int)Second;
+////        }
+//        return System.String.Format("{0}:{1:00}:{2:00}", Hour, Mathf.FloorToInt(Minute), Mathf.FloorToInt(Second));
+//    }
+//
+//    /// <summary>
+//    /// <para>Returns a time string formatted like: H:MM:SS  [EXAMPLE: 2:15:30 12/25/2015]</para>
+//    /// This returns a string containing Hour, Minute, Second  
+//    /// </summary>
+//    /// <returns></returns>
+//    public virtual string GetTimeHourMin()
+//    {
+//        return System.String.Format("{0}:{1:00}", Hour, Minute);
+//    }
+//
+//    /// <summary>
+//    /// <para>Returns a time string formatted like: H:MM:SS M/D/Y [EXAMPLE: 2:15:30 12/25/2015] </para>
+//    /// This returns a string containing Year, Month, Day, Hour, Minute, Second
+//    /// </summary>
+//    /// <returns></returns>
+//    public virtual string GetFullTimeString()
+//    {
+//        var timestring = System.String.Format("{0}:{1:00}:{2:00} {3}/{4}/{5}", Hour, Minute, Second, Month, Day, Year);
+//        return timestring;
+//    }
+
+    public virtual void ResetTime()
     {
-        var timestring = System.String.Format("{0}:{1:00}:{2:00} {3}/{4}/{5}", Hour, Minute, Second, Month, Day, Year);
-        return timestring;
+//        CurrentDay = Days.Monday;
+//        CurrentMonth = Months.January;
+//        Year = 1;
+//        Month = 1;
+//        Week = 1;
+//        Day = 1;
+        Hour = 0;
+        Minute = 0;
+        Second = 0;
     }
 }
 

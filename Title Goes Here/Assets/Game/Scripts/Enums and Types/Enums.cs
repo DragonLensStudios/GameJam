@@ -32,3 +32,26 @@ public enum Months
     November = 11,
     December = 12
 }
+
+public enum GameState
+{
+    PAUSED = 0,
+    PROCRASTINATION = 1,
+    WORK_ON_AUDIO = 2,
+    WORK_ON_ENGINE = 3,
+    WORK_ON_GAMEPLAY = 4,
+    WORK_ON_GRAPHICS = 5,
+    WORK_ON_STORY = 6,
+    ENDGAME = 7
+}
+
+public enum TimeType
+{
+    Second,
+    Minute,
+    Hour,
+    Day,
+    Week,
+    Month,
+    Year
+}

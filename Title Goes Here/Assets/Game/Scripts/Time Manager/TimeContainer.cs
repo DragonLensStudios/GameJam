@@ -1,4 +1,6 @@
-﻿/// <summary>
+﻿using UnityEngine;
+
+/// <summary>
 /// This is the Time Container class, This class holds time variables and methods used for custom timers and custom clocks.
 /// </summary>
 [System.Serializable]
@@ -6,6 +8,10 @@ public class TimeContainer
 {
     public Days CurrentDay = Days.Monday;
     public Months CurrentMonth = Months.January;
+    public string TimeString_H_MM_SS_MM_DD_YYYY;
+    public string TimeString_H_MM_SS;
+    public string TimeString_H_MM;
+
     public float totaltimesec;
 
     public float Year = 1;
@@ -178,13 +184,13 @@ public class TimeContainer
         if ((int)Second < 0 && Minute >= 0)
         {
             Minute--;
-            Second = SecondsInMinute - 1;
+            Second += SecondsInMinute;
         }
 
         if ((int)Minute < 0 && Hour >= 0)
         {
             Hour--;
-            Minute = MinutesInHour - 1;
+            Minute += MinutesInHour;
         }
 
         if ((int)Hour < 0 && Day >= 1)
@@ -199,7 +205,7 @@ public class TimeContainer
                 CurrentDay--;
             }
             CurrentDay--;
-            Hour = HoursInDay - 1;
+            Hour += HoursInDay;
         }
 
         if ((int)Day < 1 && Month >= 1)
@@ -208,18 +214,18 @@ public class TimeContainer
             Day = DaysInMonth;
         }
 
-        if ((int)Month < 1 && Year > 0)
+        if ((int)Month < 1 && (int)Year > 0)
         {
             Year--;
             Month = MonthsInYear;
         }
 
-        if ((int) Second >= SecondsInMinute)
+        if ((int)Second + 1> SecondsInMinute)
         {
             Minute++;
             Second = 0;
         }
-        if ((int)Minute >= MinutesInHour)
+        if ((int)Minute + 1 > MinutesInHour)
         {
             Hour++;
             Minute = 0;
@@ -250,6 +256,10 @@ public class TimeContainer
 
         Week = (int)(Day / DaysInWeek) + 1;
         CurrentMonth = (Months) Month;
+        TimeString_H_MM_SS_MM_DD_YYYY = System.String.Format("{0}:{1:00}:{2:00} {3}/{4}/{5}", (int)Hour % HoursInDay, (int)Minute % MinutesInHour, (int)Second % SecondsInMinute, Month, Day, Year);
+        TimeString_H_MM_SS = System.String.Format("{0}:{1:00}:{2:00}", (int)Hour % HoursInDay, (int)Minute % MinutesInHour, (int)Second % SecondsInMinute);
+        TimeString_H_MM = System.String.Format("{0}:{1:00}", (int)Hour % HoursInDay, (int)Minute % MinutesInHour);
+
     }
 
     /// <summary>
@@ -437,31 +447,55 @@ public class TimeContainer
         return false;
     }
 
-    /// <summary>
-    /// <para>Returns a time string formatted like: H:MM:SS  [EXAMPLE: 2:15:30 12/25/2015]</para>
-    /// This returns a string containing Hour, Minute, Second  
-    /// </summary>
-    /// <returns></returns>
-    public virtual string GetTimeString()
-    {
-//        var sec = (int)Second;
-//        if (sec < 0 || sec == SecondsInMinute)
-//        {
-//            sec = 0;
-//        }
-        return System.String.Format("{0}:{1:00}:{2:00}", Hour, Minute, Second);
-    }
-
-    /// <summary>
-    /// <para>Returns a time string formatted like: H:MM:SS M/D/Y [EXAMPLE: 2:15:30 12/25/2015] </para>
-    /// This returns a string containing Year, Month, Day, Hour, Minute, Second
-    /// </summary>
-    /// <returns></returns>
-    public virtual string GetFullTimeString()
-    {
-        var timestring = System.String.Format("{0}:{1:00}:{2:00} {3}/{4}/{5}", Hour, Minute, Second, Month, Day, Year);
-        return timestring;
-    }
+//    /// <summary>
+//    /// <para>Returns a time string formatted like: H:MM:SS  [EXAMPLE: 2:15:30 12/25/2015]</para>
+//    /// This returns a string containing Hour, Minute, Second  
+//    /// </summary>
+//    /// <returns></returns>
+//    public virtual string GetTimeString()
+//    {
+////        var min = 0;
+////        var sec = 0;
+////        if ((int)Minute == 60)
+////        {
+////            min = 0;
+////        }
+////        else
+////        {
+////            min = (int) Minute;
+////        }
+////
+////        if ((int)Second == 60)
+////        {
+////            sec = 0;
+////        }
+////        else
+////        {
+////            sec = (int)Second;
+////        }
+//        return System.String.Format("{0}:{1:00}:{2:00}", Hour, Mathf.FloorToInt(Minute), Mathf.FloorToInt(Second));
+//    }
+//
+//    /// <summary>
+//    /// <para>Returns a time string formatted like: H:MM:SS  [EXAMPLE: 2:15:30 12/25/2015]</para>
+//    /// This returns a string containing Hour, Minute, Second  
+//    /// </summary>
+//    /// <returns></returns>
+//    public virtual string GetTimeHourMin()
+//    {
+//        return System.String.Format("{0}:{1:00}", Hour, Minute);
+//    }
+//
+//    /// <summary>
+//    /// <para>Returns a time string formatted like: H:MM:SS M/D/Y [EXAMPLE: 2:15:30 12/25/2015] </para>
+//    /// This returns a string containing Year, Month, Day, Hour, Minute, Second
+//    /// </summary>
+//    /// <returns></returns>
+//    public virtual string GetFullTimeString()
+//    {
+//        var timestring = System.String.Format("{0}:{1:00}:{2:00} {3}/{4}/{5}", Hour, Minute, Second, Month, Day, Year);
+//        return timestring;
+//    }
 
     public virtual void ResetTime()
     {

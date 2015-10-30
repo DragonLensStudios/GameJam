@@ -16,6 +16,7 @@ public class TimeHandler : MonoBehaviour
     public Text StoryTimerText;
     public Text ProcrastinationTimerText;
     public Text CurrentTaskText;
+    public Text FatigueText;
 
     public int randomtime;
     public bool randomengaged;
@@ -33,12 +34,16 @@ public class TimeHandler : MonoBehaviour
     public TimeContainer GameTimeLimit = new TimeContainer(day: 4, hour: 0 , minute: 10,timescale:60);
     public TimeContainer RealTime = new TimeContainer(minute:15);
     public TimeContainer ProcrastinationTime = new TimeContainer(timescale:60);
+
+    public FatigueSystem fatigueSystem = new FatigueSystem();
 //    public TimeContainer testaction2 = new TimeContainer(hour:3,minute:0, timescale: 60);
 
 
     public void Start()
     {
 
+        fatigueSystem.currentFatigue = 0;
+        fatigueSystem.percentage = fatigueSystem.currentFatigue/fatigueSystem.maxFatigue;
     }
     // Update is called once per frame
     void Update()
@@ -86,10 +91,12 @@ public class TimeHandler : MonoBehaviour
                 break;
             case GameState.PROCRASTINATION:
                 ProcrastinationTime.StartTime(TimeType.Minute);
+                fatigueSystem.currentFatigue += .01f;
                 CurrentTaskText.text = "Procrastinating!";
                 break;
             case GameState.WORK_ON_AUDIO:
                 ScoreSystem.Audio.ProgressScore();
+                fatigueSystem.currentFatigue += .01f;
                 CurrentTaskText.text = "Working On Audio!";
                 if (ScoreSystem.Audio.Score < 5)
                 {

@@ -42,7 +42,8 @@ public enum GameState
     WORK_ON_GAMEPLAY = 4,
     WORK_ON_GRAPHICS = 5,
     WORK_ON_STORY = 6,
-    ENDGAME = 7
+    ENDGAME = 7,
+    SLEEP = 8
 }
 
 public enum TimeType

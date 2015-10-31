@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TimeHandler : MonoBehaviour
@@ -19,7 +20,9 @@ public class TimeHandler : MonoBehaviour
     public Text StoryTimerText;
     public Text ProcrastinationTimerText;
     public Text CurrentTaskText;
+    public Text FatigueText;
 
+    public int incrementedFrame;
     public int randomtime;
     public bool randomengaged;
 
@@ -31,15 +34,20 @@ public class TimeHandler : MonoBehaviour
     public TimeContainer RealTime = new TimeContainer(minute:15);
     public TimeContainer ProcrastinationTime = new TimeContainer(timescale:60);
 
+    public FatigueSystem fatigueSystem = new FatigueSystem();
+//    public TimeContainer testaction2 = new TimeContainer(hour:3,minute:0, timescale: 60);
+
 
     void Start()
     {
+        fatigueSystem.currentFatigue = 0;
         MusicManager.clip = Day1song;
         MusicManager.Play();
     }
     // Update is called once per frame
     void Update()
     {
+        incrementedFrame++;
         RealTime.ReverseTime();
         GameTime.StartTime(TimeType.Minute);
         GameTimeLimit.ReverseTime(TimeType.Minute);
@@ -80,44 +88,69 @@ public class TimeHandler : MonoBehaviour
                 CurrentTaskText.text = "Procrastinating!";
                 break;
             case GameState.WORK_ON_AUDIO:
-                ScoreSystem.Audio.ProgressScore();
-                CurrentTaskText.text = "Working On Audio!";
-                if (ScoreSystem.Audio.Score < 5)
+                if (fatigueSystem.currentFatigue < fatigueSystem.maxFatigue)
                 {
-                    ScoreSystem.Audio.Time.StartTime(TimeType.Minute);
+
+
+                    ScoreSystem.Audio.ProgressScore();
+                    fatigueSystem.ProgressFatigue();
+                    CurrentTaskText.text = "Working On Audio!";
+                    if (ScoreSystem.Audio.Score < 5)
+                    {
+                        ScoreSystem.Audio.Time.StartTime(TimeType.Minute);
+                    }
                 }
                 break;
             case GameState.WORK_ON_ENGINE:
-                CurrentTaskText.text = "Working On Engine!";
+                if (fatigueSystem.currentFatigue < fatigueSystem.maxFatigue)
+                {
+                    CurrentTaskText.text = "Working On Engine!";
                 ScoreSystem.Engine.ProgressScore();
+                fatigueSystem.ProgressFatigue();
                 if (ScoreSystem.Engine.Score < 5)
                 {
                     ScoreSystem.Engine.Time.StartTime(TimeType.Minute);
                 }
+          }
                 break;
             case GameState.WORK_ON_GAMEPLAY:
-                CurrentTaskText.text = "Working On Gameplay!";
-                ScoreSystem.Gameplay.ProgressScore();
-                if (ScoreSystem.Gameplay.Score < 5)
+                if (fatigueSystem.currentFatigue < fatigueSystem.maxFatigue)
                 {
-                    ScoreSystem.Gameplay.Time.StartTime(TimeType.Minute);
+                    CurrentTaskText.text = "Working On Gameplay!";
+                    ScoreSystem.Gameplay.ProgressScore();
+                    fatigueSystem.ProgressFatigue();
+                    if (ScoreSystem.Gameplay.Score < 5)
+                    {
+                        ScoreSystem.Gameplay.Time.StartTime(TimeType.Minute);
+                    }
                 }
                 break;
             case GameState.WORK_ON_GRAPHICS:
-                CurrentTaskText.text = "Working On Graphics!";
+                if (fatigueSystem.currentFatigue < fatigueSystem.maxFatigue)
+                {
+                    CurrentTaskText.text = "Working On Graphics!";
                 ScoreSystem.Graphics.ProgressScore();
+                fatigueSystem.ProgressFatigue();
                 if (ScoreSystem.Graphics.Score < 5)
                 {
                     ScoreSystem.Graphics.Time.StartTime(TimeType.Minute);
                 }
+              }
                 break;
             case GameState.WORK_ON_STORY:
-                CurrentTaskText.text = "Working On Story!";
+                if (fatigueSystem.currentFatigue < fatigueSystem.maxFatigue)
+                {
+                    CurrentTaskText.text = "Working On Story!";
+                fatigueSystem.ProgressFatigue();
                 ScoreSystem.Story.ProgressScore();
                 if (ScoreSystem.Story.Score < 5)
                 {
                     ScoreSystem.Story.Time.StartTime(TimeType.Minute);
                 }
+             }
+                break;
+            case GameState.SLEEP:
+                fatigueSystem.SleepFatigue();
                 break;
             case GameState.ENDGAME:
                 CurrentTaskText.text = "GAME END!";
@@ -136,6 +169,7 @@ public class TimeHandler : MonoBehaviour
         ProcrastinationTimerText.text = "Procrastination: " + ProcrastinationTime.TimeString_H_MM;
         GameTimeLimitText.text = "DAYS: " + GameTimeLimit.Day + "  Time: " + GameTimeLimit.TimeString_H_MM;
         RealTimeCounterText.text = "REAL TIME: " + RealTime.TimeString_H_MM_SS;
+        FatigueText.text = System.String.Format("Fatigue : {0:P} % ", fatigueSystem.getPercentage());
     }
 
     public void SetGameState(int gamestateindex)

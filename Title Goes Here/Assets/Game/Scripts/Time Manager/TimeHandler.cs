@@ -128,13 +128,13 @@ public class TimeHandler : MonoBehaviour
 
         TotalScoreText.text = "Total Score: " + ScoreSystem.TotalScore;
         GameTimeText.text =   "Day " + GameTime.Day + " Game Time: "+ GameTime.TimeString_H_MM;
-        AudioTimerText.text = "Audio Feature: " + ScoreSystem.Audio.Time.TimeString_H_MM + " Score: " + ScoreSystem.Audio.Score;
-        EngineTimerText.text = "Engine Feature: " + ScoreSystem.Engine.Time.TimeString_H_MM + " Score: " + ScoreSystem.Engine.Score;
-        GameplayTimerText.text = "Gameplay Feature: " + ScoreSystem.Gameplay.Time.TimeString_H_MM + " Score: " + ScoreSystem.Gameplay.Score;
-        GraphicsTimerText.text = "Graphics Feature: " + ScoreSystem.Graphics.Time.TimeString_H_MM + " Score: " + ScoreSystem.Graphics.Score;
-        StoryTimerText.text = "Story Feature: " + ScoreSystem.Story.Time.TimeString_H_MM + " Score: " + ScoreSystem.Story.Score;
-        ProcrastinationTimerText.text = "Procrastination Timer: " + ProcrastinationTime.TimeString_H_MM;
-        GameTimeLimitText.text = "DAYS LEFT: " + GameTimeLimit.Day + "  Time Left: " + GameTimeLimit.TimeString_H_MM;
+        AudioTimerText.text = "Audio: " + ScoreSystem.Audio.Time.TimeString_H_MM + " Score: " + ScoreSystem.Audio.Score;
+        EngineTimerText.text = "Engine: " + ScoreSystem.Engine.Time.TimeString_H_MM + " Score: " + ScoreSystem.Engine.Score;
+        GameplayTimerText.text = "Gameplay: " + ScoreSystem.Gameplay.Time.TimeString_H_MM + " Score: " + ScoreSystem.Gameplay.Score;
+        GraphicsTimerText.text = "Graphics: " + ScoreSystem.Graphics.Time.TimeString_H_MM + " Score: " + ScoreSystem.Graphics.Score;
+        StoryTimerText.text = "Story: " + ScoreSystem.Story.Time.TimeString_H_MM + " Score: " + ScoreSystem.Story.Score;
+        ProcrastinationTimerText.text = "Procrastination: " + ProcrastinationTime.TimeString_H_MM;
+        GameTimeLimitText.text = "DAYS: " + GameTimeLimit.Day + "  Time: " + GameTimeLimit.TimeString_H_MM;
         RealTimeCounterText.text = "REAL TIME: " + RealTime.TimeString_H_MM_SS;
     }
 

@@ -9,31 +9,11 @@ public class GameFeature
     public GameFeature(string name)
     {
         Name = name;
-//        initialtime = Time.TotalTimeSeconds;
     }
 
     public bool ProgressScore()
     {
-
-//        if (float.IsNaN(initialtime))
-//        {
-//            initialtime = Time.TotalTimeSeconds;
-//            //Debug.Log(initialtime);
-//        }
-//        float _delta = (Time.TotalTimeSeconds - initialtime) / 3600;
-//
-//        float _temp_score = -(_delta * _delta) * (5f / 196f) + 5 * _delta / 7f;
-//        //Debug.Log("Did something, Delta: " + _delta + " , TempScore: " + _temp_score);
-//
-//        if (_temp_score - Score > .5f || _delta >=14)
-//        {
-//            Score = Mathf.Round(2 * _temp_score) / 2;
-//            Debug.Log("score: " + Score + " time(hours): " + _delta);
-//            return true;
-//        }
-
-
-        if (Score < 1 && Time.CheckTime(minute:30,second:0))
+        if (Score < 1 && Time.CheckTime(minute:30))
         {
             Time.ResetTime();
             Score += 0.5f;

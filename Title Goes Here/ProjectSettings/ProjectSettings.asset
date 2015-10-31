@@ -149,8 +149,8 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: D:/Users/monyd/Documents/GitHub/GameJam/Title Goes Here/dls.keystore
+  AndroidKeyaliasName: dls_auth_key
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
   androidEnableBanner: 1

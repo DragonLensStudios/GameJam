@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 0ec7180675b45f24eb6c3b919ceec71d
-timeCreated: 1446248919
+timeCreated: 1446287061
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -111,20 +111,20 @@ TextureImporter:
     - name: Button_Door
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 64
+        x: 74
+        y: 4
+        width: 44
+        height: 55
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Button_Door_Open
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
-        height: 64
+        x: 138
+        y: 4
+        width: 44
+        height: 55
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

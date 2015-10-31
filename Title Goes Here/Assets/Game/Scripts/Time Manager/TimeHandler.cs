@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 public class TimeHandler : MonoBehaviour
 {
+    public AudioClip Day1song;
+    public AudioSource MusicManager; 
+
     public Text GameTimeText;
     public Text GameTimeLimitText;
 
@@ -24,10 +27,16 @@ public class TimeHandler : MonoBehaviour
 
     public StarScoreSystem ScoreSystem;
     public TimeContainer GameTime = new TimeContainer(timescale:60);
-    public TimeContainer GameTimeLimit = new TimeContainer(year:0, month: 0, day: 1, hour: 0 , minute: 0,timescale: 4.8f);
+    public TimeContainer GameTimeLimit = new TimeContainer(year:0, month: 0, day: 3, hour: 0 , minute: 1,timescale: 4.8f);
     public TimeContainer RealTime = new TimeContainer(minute:15);
     public TimeContainer ProcrastinationTime = new TimeContainer(timescale:60);
 
+
+    void Start()
+    {
+        MusicManager.clip = Day1song;
+        MusicManager.Play();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -126,7 +135,7 @@ public class TimeHandler : MonoBehaviour
         StoryTimerText.text = "Story Feature: " + ScoreSystem.Story.Time.TimeString_H_MM + " Score: " + ScoreSystem.Story.Score;
         ProcrastinationTimerText.text = "Procrastination Timer: " + ProcrastinationTime.TimeString_H_MM;
         GameTimeLimitText.text = "DAYS LEFT: " + GameTimeLimit.Day + "  Time Left: " + GameTimeLimit.TimeString_H_MM;
-        RealTimeCounterText.text = "REAL TIME: " + RealTime.TimeString_H_MM;
+        RealTimeCounterText.text = "REAL TIME: " + RealTime.TimeString_H_MM_SS;
     }
 
     public void SetGameState(int gamestateindex)

@@ -34,25 +34,16 @@ public class TimeHandler : MonoBehaviour
     public TimeContainer RealTime = new TimeContainer(minute:15);
     public TimeContainer ProcrastinationTime = new TimeContainer(timescale:60);
 
-<<<<<<< HEAD
     public FatigueSystem fatigueSystem = new FatigueSystem();
 //    public TimeContainer testaction2 = new TimeContainer(hour:3,minute:0, timescale: 60);
 
 
-    public void Start()
-    {
-
-        fatigueSystem.currentFatigue = 0;
-    }
-
-=======
-
     void Start()
     {
+        fatigueSystem.currentFatigue = 0;
         MusicManager.clip = Day1song;
         MusicManager.Play();
     }
->>>>>>> DEVBUILD
     // Update is called once per frame
     void Update()
     {
@@ -177,12 +168,8 @@ public class TimeHandler : MonoBehaviour
         StoryTimerText.text = "Story Feature: " + ScoreSystem.Story.Time.TimeString_H_MM + " Score: " + ScoreSystem.Story.Score;
         ProcrastinationTimerText.text = "Procrastination Timer: " + ProcrastinationTime.TimeString_H_MM;
         GameTimeLimitText.text = "DAYS LEFT: " + GameTimeLimit.Day + "  Time Left: " + GameTimeLimit.TimeString_H_MM;
-<<<<<<< HEAD
-        RealTimeCounterText.text = "REAL TIME: " + RealTime.TimeString_H_MM;
-        FatigueText.text = System.String.Format("Fatigue : {0:P} % ", fatigueSystem.getPercentage());
-=======
         RealTimeCounterText.text = "REAL TIME: " + RealTime.TimeString_H_MM_SS;
->>>>>>> DEVBUILD
+        FatigueText.text = System.String.Format("Fatigue : {0:P} % ", fatigueSystem.getPercentage());
     }
 
     public void SetGameState(int gamestateindex)

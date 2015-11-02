@@ -78,7 +78,7 @@ namespace Newtonsoft.Json.Serialization
 	public class DefaultContractResolver : IContractResolver
 	{
 		private static readonly IContractResolver _instance = new DefaultContractResolver(true);
-		internal static IContractResolver Instance
+		internal static IContractResolver Manage
 		{
 			get { return _instance; }
 		}
@@ -110,7 +110,7 @@ namespace Newtonsoft.Json.Serialization
 			get { return JsonTypeReflector.DynamicCodeGeneration; }
 		}
 
-		private Newtonsoft.Json.Utilities.BindingFlags DefaultMembersSearchFlags = Newtonsoft.Json.Utilities.BindingFlags.Instance | Newtonsoft.Json.Utilities.BindingFlags.Public;
+		private Newtonsoft.Json.Utilities.BindingFlags DefaultMembersSearchFlags = Newtonsoft.Json.Utilities.BindingFlags.Manage | Newtonsoft.Json.Utilities.BindingFlags.Public;
 
 		/// <summary>
 		/// Gets or sets a value indicating whether compiler generated members should be serialized.
@@ -204,7 +204,7 @@ namespace Newtonsoft.Json.Serialization
 
 			MemberSerialization memberSerialization = JsonTypeReflector.GetObjectMemberSerialization(objectType, ignoreSerializableAttribute);
 
-			List<MemberInfo> allMembers = ReflectionUtils.GetFieldsAndProperties(objectType, Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.NonPublic | Newtonsoft.Json.Utilities.BindingFlags.Instance | Newtonsoft.Json.Utilities.BindingFlags.Static)
+			List<MemberInfo> allMembers = ReflectionUtils.GetFieldsAndProperties(objectType, Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.NonPublic | Newtonsoft.Json.Utilities.BindingFlags.Manage | Newtonsoft.Json.Utilities.BindingFlags.Static)
 			  .Where(m => !ReflectionUtils.IsIndexedProperty(m)).ToList();
 
 			List<MemberInfo> serializableMembers = new List<MemberInfo>();
@@ -325,8 +325,8 @@ namespace Newtonsoft.Json.Serialization
 			IEnumerable<MemberInfo> members = GetClassHierarchyForType(type).SelectMany(baseType =>
 			{
 				IList<MemberInfo> m = new List<MemberInfo>();
-				m.AddRange(baseType.GetProperties(Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.NonPublic | Newtonsoft.Json.Utilities.BindingFlags.Instance | Newtonsoft.Json.Utilities.BindingFlags.DeclaredOnly));
-				m.AddRange(baseType.GetFields(Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.NonPublic | Newtonsoft.Json.Utilities.BindingFlags.Instance | Newtonsoft.Json.Utilities.BindingFlags.DeclaredOnly));
+				m.AddRange(baseType.GetProperties(Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.NonPublic | Newtonsoft.Json.Utilities.BindingFlags.Manage | Newtonsoft.Json.Utilities.BindingFlags.DeclaredOnly));
+				m.AddRange(baseType.GetFields(Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.NonPublic | Newtonsoft.Json.Utilities.BindingFlags.Manage | Newtonsoft.Json.Utilities.BindingFlags.DeclaredOnly));
 
 				return m;
 			});
@@ -469,7 +469,7 @@ namespace Newtonsoft.Json.Serialization
 
 		private ConstructorInfo GetAttributeConstructor(Type objectType)
 		{
-			IList<ConstructorInfo> markedConstructors = objectType.GetConstructors(Newtonsoft.Json.Utilities.BindingFlags.Instance | Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.NonPublic).Where(c => c.IsDefined(typeof(JsonConstructorAttribute), true)).ToList();
+			IList<ConstructorInfo> markedConstructors = objectType.GetConstructors(Newtonsoft.Json.Utilities.BindingFlags.Manage | Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.NonPublic).Where(c => c.IsDefined(typeof(JsonConstructorAttribute), true)).ToList();
 
 			if (markedConstructors.Count > 1)
 				throw new JsonException("Multiple constructors with the JsonConstructorAttribute.");
@@ -485,7 +485,7 @@ namespace Newtonsoft.Json.Serialization
 
 		private ConstructorInfo GetParametrizedConstructor(Type objectType)
 		{
-			IList<ConstructorInfo> constructors = objectType.GetConstructors(Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.Instance).ToList();
+			IList<ConstructorInfo> constructors = objectType.GetConstructors(Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.Manage).ToList();
 
 			if (constructors.Count == 1)
 				return constructors[0];
@@ -668,7 +668,7 @@ namespace Newtonsoft.Json.Serialization
 				MethodInfo currentOnDeserialized = null;
 				MethodInfo currentOnError = null;
 
-				foreach (MethodInfo method in baseType.GetMethods(Newtonsoft.Json.Utilities.BindingFlags.NonPublic | Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.Instance | Newtonsoft.Json.Utilities.BindingFlags.DeclaredOnly))
+				foreach (MethodInfo method in baseType.GetMethods(Newtonsoft.Json.Utilities.BindingFlags.NonPublic | Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.Manage | Newtonsoft.Json.Utilities.BindingFlags.DeclaredOnly))
 				{
 					// compact framework errors when getting parameters for a generic method
 					// lame, but generic methods should not be callbacks anyway

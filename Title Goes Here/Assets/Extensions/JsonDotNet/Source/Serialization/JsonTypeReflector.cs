@@ -348,7 +348,7 @@ namespace Newtonsoft.Json.Serialization
       {
 #if !((UNITY_WP8 || UNITY_WP_8_1) || (UNITY_WINRT && !UNITY_EDITOR) || UNITY_IOS || UNITY_IPHONE || UNITY_ANDROID)
         if (DynamicCodeGeneration)
-          return DynamicReflectionDelegateFactory.Instance;
+          return DynamicReflectionDelegateFactory.Manage;
 #endif
         return LateBoundReflectionDelegateFactory.Instance;
       }

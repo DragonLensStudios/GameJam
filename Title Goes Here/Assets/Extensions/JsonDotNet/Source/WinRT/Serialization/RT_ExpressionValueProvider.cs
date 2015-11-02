@@ -62,7 +62,7 @@ namespace Newtonsoft.Json.Serialization
       try
       {
         if (_setter == null)
-          _setter = ExpressionReflectionDelegateFactory.Instance.CreateSet<object>(_memberInfo);
+          _setter = ExpressionReflectionDelegateFactory.Manage.CreateSet<object>(_memberInfo);
 
 #if DEBUG
         // dynamic method doesn't check whether the type is 'legal' to set
@@ -96,7 +96,7 @@ namespace Newtonsoft.Json.Serialization
       try
       {
         if (_getter == null)
-          _getter = ExpressionReflectionDelegateFactory.Instance.CreateGet<object>(_memberInfo);
+          _getter = ExpressionReflectionDelegateFactory.Manage.CreateGet<object>(_memberInfo);
 
         return _getter(target);
       }

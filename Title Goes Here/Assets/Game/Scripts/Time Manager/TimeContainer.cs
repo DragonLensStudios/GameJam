@@ -143,7 +143,6 @@ public class TimeContainer
                 Year += UnityEngine.Time.deltaTime * TimeScale;
                 break;
         }
-//        UnityEngine.Debug.Log(System.String.Format("Sec: {0} Min: {1} Hour: {2} Day: {3} Week: {4} Month: {5} Year: {6}", Second,Minute, Hour, Day, Week, Month, Year));
         ValidateTime();
     }
 
@@ -321,6 +320,40 @@ public class TimeContainer
         return false;
     }
 
+
+    public void SetTime(int year = -1, int month = -1, int week = -1, int day = -1, int hour = -1, int minute = -1,int second = -1)
+    {
+        if (year != -1)
+        {
+            Year = year;
+        }
+        if (month != -1)
+        {
+            Month = month;
+        }
+        if (week != -1)
+        {
+            Week = week;
+        }
+        if (day != -1)
+        {
+            Day = day;
+        }
+        if (hour != -1)
+        {
+            Hour = hour;
+        }
+        if (minute != -1)
+        {
+            Minute = minute;
+        }
+        if (second != -1)
+        {
+            Second = second;
+        }
+
+    }
+
     /// <summary>
     /// <para>Checks the Exact Second.</para>
     /// Returns True if the time has been reached otherwise returns False.
@@ -446,65 +479,78 @@ public class TimeContainer
         }
         return false;
     }
-
-//    /// <summary>
-//    /// <para>Returns a time string formatted like: H:MM:SS  [EXAMPLE: 2:15:30 12/25/2015]</para>
-//    /// This returns a string containing Hour, Minute, Second  
-//    /// </summary>
-//    /// <returns></returns>
-//    public virtual string GetTimeString()
-//    {
-////        var min = 0;
-////        var sec = 0;
-////        if ((int)Minute == 60)
-////        {
-////            min = 0;
-////        }
-////        else
-////        {
-////            min = (int) Minute;
-////        }
-////
-////        if ((int)Second == 60)
-////        {
-////            sec = 0;
-////        }
-////        else
-////        {
-////            sec = (int)Second;
-////        }
-//        return System.String.Format("{0}:{1:00}:{2:00}", Hour, Mathf.FloorToInt(Minute), Mathf.FloorToInt(Second));
-//    }
-//
-//    /// <summary>
-//    /// <para>Returns a time string formatted like: H:MM:SS  [EXAMPLE: 2:15:30 12/25/2015]</para>
-//    /// This returns a string containing Hour, Minute, Second  
-//    /// </summary>
-//    /// <returns></returns>
-//    public virtual string GetTimeHourMin()
-//    {
-//        return System.String.Format("{0}:{1:00}", Hour, Minute);
-//    }
-//
-//    /// <summary>
-//    /// <para>Returns a time string formatted like: H:MM:SS M/D/Y [EXAMPLE: 2:15:30 12/25/2015] </para>
-//    /// This returns a string containing Year, Month, Day, Hour, Minute, Second
-//    /// </summary>
-//    /// <returns></returns>
-//    public virtual string GetFullTimeString()
-//    {
-//        var timestring = System.String.Format("{0}:{1:00}:{2:00} {3}/{4}/{5}", Hour, Minute, Second, Month, Day, Year);
-//        return timestring;
-//    }
-
-    public virtual void ResetTime()
+    public virtual void ResetTime(bool year = false, bool month = false, bool week = false, bool day = false, bool hour = false, bool minute = false, bool second = false)
     {
-//        CurrentDay = Days.Monday;
-//        CurrentMonth = Months.January;
-//        Year = 1;
-//        Month = 1;
-//        Week = 1;
-//        Day = 1;
+        if (year)
+        {
+            Year = 0;
+        }
+        if (month)
+        {
+            Month = 1;
+            CurrentMonth = Months.January;
+        }
+        if (week)
+        {
+            Week = 1;
+        }
+        if (day)
+        {
+            Day = 1;
+        }
+        if (hour)
+        {
+            Hour = 0;
+        }
+        if (minute)
+        {
+            Minute = 0;
+        }
+        if (second)
+        {
+            Second = 0;
+        }
+
+    }
+
+    public virtual void ResetMonth()
+    {
+        Day = 1;
+        CurrentDay = Days.Monday;;
+        Hour = 0;
+        Minute = 0;
+        Second = 0;
+    }
+
+    public virtual void ResetWeek()
+    {
+        Day -= (int)Day % DaysInWeek;  // Not sure if this works yet.? Untested
+    }
+
+    public virtual void ResetDay()
+    {
+        Hour = 0;
+        Minute = 0;
+        Second = 0;
+    }
+    public virtual void ResetHour()
+    {
+        Minute = 0;
+        Second = 0;
+    }
+    public virtual void ResetMinute()
+    {
+        Second = 0;
+    }
+
+    public virtual void ResetFullDate()
+    {
+        CurrentDay = Days.Monday;
+        CurrentMonth = Months.January;
+        Year = 1;
+        Month = 1;
+        Week = 1;
+        Day = 1;
         Hour = 0;
         Minute = 0;
         Second = 0;

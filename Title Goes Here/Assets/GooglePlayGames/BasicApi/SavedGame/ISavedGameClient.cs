@@ -153,7 +153,7 @@ public delegate void ConflictCallback(IConflictResolver resolver, ISavedGameMeta
     /// file (i.e. filenames are not device specific).
     /// </para>
     ///
-    /// <para><strong>Saved Game Metadata</strong> are represented by <see cref="ISavedGameMetadata"/>.
+    /// <para><strong>Saved Manage Metadata</strong> are represented by <see cref="ISavedGameMetadata"/>.
     /// The instances allow access to metadata properties about the underlying saved game (e.g.
     /// description). In addition, metadata functions as a handle that are required to read and
     /// manipulate saved game contents. Lastly, metadata may be "Open". Open metadata instances are

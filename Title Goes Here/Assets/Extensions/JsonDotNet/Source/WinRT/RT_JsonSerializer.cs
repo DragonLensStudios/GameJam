@@ -289,7 +289,7 @@ namespace Newtonsoft.Json
     public virtual IContractResolver ContractResolver
     {
       get { return _contractResolver; }
-      set { _contractResolver = value ?? DefaultContractResolver.Instance; }
+      set { _contractResolver = value ?? DefaultContractResolver.Manage; }
     }
 
     /// <summary>
@@ -438,10 +438,10 @@ namespace Newtonsoft.Json
       _constructorHandling = JsonSerializerSettings.DefaultConstructorHandling;
       _typeNameHandling = JsonSerializerSettings.DefaultTypeNameHandling;
       _context = JsonSerializerSettings.DefaultContext;
-      _binder = DefaultSerializationBinder.Instance;
+      _binder = DefaultSerializationBinder.Manage;
 
       _culture = JsonSerializerSettings.DefaultCulture;
-      _contractResolver = DefaultContractResolver.Instance;
+      _contractResolver = DefaultContractResolver.Manage;
     }
 
     /// <summary>

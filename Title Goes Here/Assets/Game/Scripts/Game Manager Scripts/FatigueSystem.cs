@@ -39,6 +39,13 @@
         Time.ResetTime();
         return true;
     }
+
+    public void ResetFatigue()
+    {
+        Time.ResetTime(hour:true,minute:true,second:true);
+        currentFatigue = 0;
+        percentage = 0;
+    }
 }
 
 

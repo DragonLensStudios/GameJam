@@ -65,7 +65,7 @@ namespace Newtonsoft.Json.Serialization
       try
       {
         if (_setter == null)
-          _setter = DynamicReflectionDelegateFactory.Instance.CreateSet<object>(_memberInfo);
+          _setter = DynamicReflectionDelegateFactory.Manage.CreateSet<object>(_memberInfo);
 
 #if DEBUG
         // dynamic method doesn't check whether the type is 'legal' to set
@@ -99,7 +99,7 @@ namespace Newtonsoft.Json.Serialization
       try
       {
         if (_getter == null)
-          _getter = DynamicReflectionDelegateFactory.Instance.CreateGet<object>(_memberInfo);
+          _getter = DynamicReflectionDelegateFactory.Manage.CreateGet<object>(_memberInfo);
 
         return _getter(target);
       }

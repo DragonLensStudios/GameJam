@@ -37,7 +37,7 @@ namespace Newtonsoft.Json.Utilities
 {
   internal class DynamicReflectionDelegateFactory : ReflectionDelegateFactory
   {
-    public static DynamicReflectionDelegateFactory Instance = new DynamicReflectionDelegateFactory();
+    public static DynamicReflectionDelegateFactory Manage = new DynamicReflectionDelegateFactory();
 
     private static DynamicMethod CreateDynamicMethod(string name, Type returnType, Type[] parameterTypes, Type owner)
     {
@@ -125,7 +125,7 @@ namespace Newtonsoft.Json.Utilities
       else
       {
         ConstructorInfo constructorInfo =
-          type.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null,
+          type.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Manage, null,
                               Type.EmptyTypes, null);
 
         if (constructorInfo == null)

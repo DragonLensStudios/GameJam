@@ -66,7 +66,7 @@ namespace DustinHorne.Json.Examples
 //          {
 //              File.WriteAllText("Assets/Resources/" + json_name + ".json",serialized);
 //          }
-//            File.WriteAllText("Assets/Game/Resources/Testjson.json",serialized);
+//            File.WriteAllText("Assets/Manage/Resources/Testjson.json",serialized);
 
             //Now we can deserialize this string back into an object
 

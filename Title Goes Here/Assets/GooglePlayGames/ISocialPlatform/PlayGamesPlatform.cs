@@ -90,7 +90,7 @@ namespace GooglePlayGames
             {
                 if (sInstance == null)
                 {
-                    Logger.d("Instance was not initialized, using default configuration.");
+                    Logger.d("Manage was not initialized, using default configuration.");
                     InitializeInstance(PlayGamesClientConfiguration.DefaultConfiguration);
                 }
 

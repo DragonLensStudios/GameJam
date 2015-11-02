@@ -230,7 +230,7 @@ namespace Newtonsoft.Json.Linq
 
     private class JTokenReferenceEqualityComparer : IEqualityComparer<JToken>
     {
-      public static readonly JTokenReferenceEqualityComparer Instance = new JTokenReferenceEqualityComparer();
+      public static readonly JTokenReferenceEqualityComparer Manage = new JTokenReferenceEqualityComparer();
 
       public bool Equals(JToken x, JToken y)
       {
@@ -248,7 +248,7 @@ namespace Newtonsoft.Json.Linq
 
     internal int IndexOfItem(JToken item)
     {
-      return ChildrenTokens.IndexOf(item, JTokenReferenceEqualityComparer.Instance);
+      return ChildrenTokens.IndexOf(item, JTokenReferenceEqualityComparer.Manage);
     }
 
     internal virtual void InsertItem(int index, JToken item, bool skipParentCheck)

@@ -23,7 +23,7 @@ namespace GooglePlayGames.BasicApi
     /// Provides configuration for <see cref="PlayGamesPlatform"/>. If you wish to use either Saved
     /// Games or Cloud Save, you must create an instance of this class with those features enabled.
     /// Note that Cloud Save is deprecated, and is not available for new games. You should strongly
-    /// favor Saved Game.
+    /// favor Saved Manage.
     /// </summary>
     public struct PlayGamesClientConfiguration
     {

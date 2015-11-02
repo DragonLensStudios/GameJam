@@ -35,15 +35,9 @@ public enum Months
 
 public enum GameState
 {
+    NONE = -1,
     PAUSED = 0,
-    PROCRASTINATION = 1,
-    WORK_ON_AUDIO = 2,
-    WORK_ON_ENGINE = 3,
-    WORK_ON_GAMEPLAY = 4,
-    WORK_ON_GRAPHICS = 5,
-    WORK_ON_STORY = 6,
-    ENDGAME = 7,
-    SLEEP = 8
+    RUNNING = 1
 }
 
 public enum TimeType
@@ -55,4 +49,14 @@ public enum TimeType
     Week,
     Month,
     Year
+}
+
+public enum FeatureType
+{
+    NONE = 0,
+    AUDIO = 1,
+    ENGINE = 2,
+    GAMEPLAY = 3,
+    GRAPHICS = 4,
+    STORY = 5
 }

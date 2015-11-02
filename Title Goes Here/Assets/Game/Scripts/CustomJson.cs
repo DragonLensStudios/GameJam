@@ -60,7 +60,7 @@ public class CustomJson : MonoBehaviour
 
 //        Debug.Log(_class.GetType());
 //        string serialized = JsonConvert.SerializeObject(, Formatting.Indented,settings);
-//        File.WriteAllText("Assets/Game/Resources/Testjson.json",serialized);
+//        File.WriteAllText("Assets/Manage/Resources/Testjson.json",serialized);
 
 
     }

@@ -33,7 +33,7 @@ namespace Newtonsoft.Json.Utilities
 {
 	internal static class TypeExtensions
 	{
-		private static Newtonsoft.Json.Utilities.BindingFlags DefaultFlags = Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.Static | Newtonsoft.Json.Utilities.BindingFlags.Instance;
+		private static Newtonsoft.Json.Utilities.BindingFlags DefaultFlags = Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.Static | Newtonsoft.Json.Utilities.BindingFlags.Manage;
 
 		public static MethodInfo GetGetMethod(this PropertyInfo propertyInfo)
 		{
@@ -387,7 +387,7 @@ namespace Newtonsoft.Json.Utilities
 			  (!member.IsPublic && bindingFlags.HasFlag(Newtonsoft.Json.Utilities.BindingFlags.NonPublic));
 
 			bool instance = (member.IsStatic && bindingFlags.HasFlag(Newtonsoft.Json.Utilities.BindingFlags.Static)) ||
-			  (!member.IsStatic && bindingFlags.HasFlag(Newtonsoft.Json.Utilities.BindingFlags.Instance));
+			  (!member.IsStatic && bindingFlags.HasFlag(Newtonsoft.Json.Utilities.BindingFlags.Manage));
 
 			return visibility && instance;
 		}
@@ -398,7 +398,7 @@ namespace Newtonsoft.Json.Utilities
 			  (!member.IsPublic && bindingFlags.HasFlag(Newtonsoft.Json.Utilities.BindingFlags.NonPublic));
 
 			bool instance = (member.IsStatic && bindingFlags.HasFlag(Newtonsoft.Json.Utilities.BindingFlags.Static)) ||
-			  (!member.IsStatic && bindingFlags.HasFlag(Newtonsoft.Json.Utilities.BindingFlags.Instance));
+			  (!member.IsStatic && bindingFlags.HasFlag(Newtonsoft.Json.Utilities.BindingFlags.Manage));
 
 			return visibility && instance;
 		}

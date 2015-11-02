@@ -37,7 +37,7 @@ namespace Newtonsoft.Json.Serialization
   /// </summary>
   public class DefaultSerializationBinder : SerializationBinder
   {
-    internal static readonly DefaultSerializationBinder Instance = new DefaultSerializationBinder();
+    internal static readonly DefaultSerializationBinder Manage = new DefaultSerializationBinder();
 
     private readonly ThreadSafeStore<TypeNameKey, Type> _typeCache = new ThreadSafeStore<TypeNameKey, Type>(GetTypeFromTypeNameKey);
 

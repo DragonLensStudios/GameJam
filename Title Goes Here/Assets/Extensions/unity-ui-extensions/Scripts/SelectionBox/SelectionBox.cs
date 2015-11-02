@@ -6,7 +6,7 @@
 /*
  * What the SelectionBox component does is allow the game player to select objects using an RTS style click and drag interface:
  * 
- * We want to be able to select Game Objects of any type,
+ * We want to be able to select Manage Objects of any type,
  * We want to be able to drag select a group of game objects to select them,
  * We want to be able to hold the shift key and drag select a group of game objects to add them to the current selection,
  * We want to be able to single click a game object to select it,
@@ -146,7 +146,7 @@ namespace UnityEngine.UI.Extensions
 		
 		
 		void BeginSelection(){
-			// Click somewhere in the Game View.
+			// Click somewhere in the Manage View.
 			if (!Input.GetMouseButtonDown(0))
 				return;
 			

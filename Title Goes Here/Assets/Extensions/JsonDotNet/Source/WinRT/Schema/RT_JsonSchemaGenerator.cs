@@ -55,7 +55,7 @@ namespace Newtonsoft.Json.Schema
       get
       {
         if (_contractResolver == null)
-          return DefaultContractResolver.Instance;
+          return DefaultContractResolver.Manage;
 
         return _contractResolver;
       }

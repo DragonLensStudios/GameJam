@@ -53,7 +53,7 @@ namespace Newtonsoft.Json.Utilities
         Default = 0,
         IgnoreCase = 1,
         DeclaredOnly = 2,
-        Instance = 4,
+        Manage = 4,
         Static = 8,
         Public = 16,
         NonPublic = 32,
@@ -211,7 +211,7 @@ namespace Newtonsoft.Json.Utilities
 
         public static ConstructorInfo GetDefaultConstructor(Type t, bool nonPublic)
         {
-            Newtonsoft.Json.Utilities.BindingFlags bindingFlags = Newtonsoft.Json.Utilities.BindingFlags.Instance | Newtonsoft.Json.Utilities.BindingFlags.Public;
+            Newtonsoft.Json.Utilities.BindingFlags bindingFlags = Newtonsoft.Json.Utilities.BindingFlags.Manage | Newtonsoft.Json.Utilities.BindingFlags.Public;
             if (nonPublic)
                 bindingFlags = bindingFlags | Newtonsoft.Json.Utilities.BindingFlags.NonPublic;
 
@@ -705,7 +705,7 @@ namespace Newtonsoft.Json.Utilities
 
         public static MemberInfo GetMemberInfoFromType(Type targetType, MemberInfo memberInfo)
         {
-            const Newtonsoft.Json.Utilities.BindingFlags bindingAttr = Newtonsoft.Json.Utilities.BindingFlags.Instance | Newtonsoft.Json.Utilities.BindingFlags.Static | Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.NonPublic;
+            const Newtonsoft.Json.Utilities.BindingFlags bindingAttr = Newtonsoft.Json.Utilities.BindingFlags.Manage | Newtonsoft.Json.Utilities.BindingFlags.Static | Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.NonPublic;
 
             switch (memberInfo.MemberType())
             {
@@ -834,7 +834,7 @@ namespace Newtonsoft.Json.Utilities
 
         public static bool IsMethodOverridden(Type currentType, Type methodDeclaringType, string method)
         {
-            bool isMethodOverriden = currentType.GetMethods(Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.NonPublic | Newtonsoft.Json.Utilities.BindingFlags.Instance)
+            bool isMethodOverriden = currentType.GetMethods(Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.NonPublic | Newtonsoft.Json.Utilities.BindingFlags.Manage)
               .Any(info =>
                    info.Name == method &&
                        // check that the method overrides the original on DynamicObjectProxy

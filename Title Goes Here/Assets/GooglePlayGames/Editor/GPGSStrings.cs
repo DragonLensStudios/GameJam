@@ -101,7 +101,7 @@ namespace GooglePlayGames
 
             public const string WebClientIdBlurb = "The web app client ID is needed to access the user's ID token and " +
                 "call other APIs onbehalf of the user." +
-                "  It is not required for Game Services.  Enter your oauth2 client ID below.\nTo obtain this " +
+                "  It is not required for Manage Services.  Enter your oauth2 client ID below.\nTo obtain this " +
                 "ID, generate a web linked app in Developer Console. Example:\n" +
                 "123456789012-abcdefghijklm.apps.googleusercontent.com";
 

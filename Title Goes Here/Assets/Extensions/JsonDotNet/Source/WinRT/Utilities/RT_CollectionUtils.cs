@@ -1,4 +1,4 @@
-#if (UNITY_WINRT || UNITY_WP_8_1) && !UNITY_EDITOR && !UNITY_WP8
+﻿#if (UNITY_WINRT || UNITY_WP_8_1) && !UNITY_EDITOR && !UNITY_WP8
 #region License
 // Copyright (c) 2007 James Newton-King
 //
@@ -92,7 +92,7 @@ namespace Newtonsoft.Json.Utilities
     {
       Type genericEnumerable = typeof(IEnumerable<>).MakeGenericType(collectionItemType);
 
-      foreach (ConstructorInfo constructor in collectionType.GetConstructors(Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.Instance))
+      foreach (ConstructorInfo constructor in collectionType.GetConstructors(Newtonsoft.Json.Utilities.BindingFlags.Public | Newtonsoft.Json.Utilities.BindingFlags.Manage))
       {
         IList<ParameterInfo> parameters = constructor.GetParameters();
 

@@ -34,7 +34,7 @@ namespace Newtonsoft.Json.Utilities
   {
     private static readonly ExpressionReflectionDelegateFactory _instance = new ExpressionReflectionDelegateFactory();
 
-    internal static ReflectionDelegateFactory Instance
+    internal static ReflectionDelegateFactory Manage
     {
       get { return _instance; }
     }
@@ -189,7 +189,7 @@ namespace Newtonsoft.Json.Utilities
       // use reflection for structs
       // expression doesn't correctly set value
       if (fieldInfo.DeclaringType.IsValueType() || fieldInfo.IsInitOnly)
-        return LateBoundReflectionDelegateFactory.Instance.CreateSet<T>(fieldInfo);
+        return LateBoundReflectionDelegateFactory.Manage.CreateSet<T>(fieldInfo);
 
       ParameterExpression sourceParameterExpression = Expression.Parameter(typeof(T), "source");
       ParameterExpression valueParameterExpression = Expression.Parameter(typeof(object), "value");
@@ -223,7 +223,7 @@ namespace Newtonsoft.Json.Utilities
       // use reflection for structs
       // expression doesn't correctly set value
       if (propertyInfo.DeclaringType.IsValueType())
-        return LateBoundReflectionDelegateFactory.Instance.CreateSet<T>(propertyInfo);
+        return LateBoundReflectionDelegateFactory.Manage.CreateSet<T>(propertyInfo);
 
       Type instanceType = typeof(T);
       Type valueType = typeof(object);

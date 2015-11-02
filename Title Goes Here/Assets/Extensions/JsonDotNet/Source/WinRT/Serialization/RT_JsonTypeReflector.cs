@@ -258,7 +258,7 @@ namespace Newtonsoft.Json.Serialization
     {
       get
       {
-        return ExpressionReflectionDelegateFactory.Instance;
+        return ExpressionReflectionDelegateFactory.Manage;
       }
     }
   }

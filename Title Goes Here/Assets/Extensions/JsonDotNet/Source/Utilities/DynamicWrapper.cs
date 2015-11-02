@@ -144,7 +144,7 @@ namespace Newtonsoft.Json.Utilities
 			if (newMethod.IsGenericMethod)
 				newMethod = newMethod.GetGenericMethodDefinition();
 
-			FieldInfo srcField = typeof(DynamicWrapperBase).GetField("UnderlyingObject", BindingFlags.Instance | BindingFlags.NonPublic);
+			FieldInfo srcField = typeof(DynamicWrapperBase).GetField("UnderlyingObject", BindingFlags.Manage | BindingFlags.NonPublic);
 
 			var parameters = newMethod.GetParameters();
 			var parameterTypes = parameters.Select(parameter => parameter.ParameterType).ToArray();

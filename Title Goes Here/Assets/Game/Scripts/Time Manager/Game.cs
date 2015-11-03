@@ -37,14 +37,19 @@ public class Game: MonoBehaviour
     void OnEnable()
     {
         EventManager.ResetGameEvent += StartGame;
+        EventManager.MaxFeatureEvent += Maxxed;
     }
 
     void OnDisable()
     {
         EventManager.ResetGameEvent -= StartGame;
+        EventManager.MaxFeatureEvent -= Maxxed;
     }
 
-
+    public void Maxxed()
+    {
+        Debug.Log(ScoreSystem.CurrentFeature.Name + "MAXED!");
+    }
 
     void Awake()
     {
@@ -84,24 +89,35 @@ public class Game: MonoBehaviour
                 {
                     ScoreSystem.ValidateFeature(ScoreSystem.Feature);
                 }
-                else
+                if(ScoreSystem.isWorking == false)
                 {
                     ProcrastinationTime.StartTime(TimeType.Minute);
-                }
-                if (GameTimeLimit.CheckTime(day: 0, hour: 0,minute: 0))
-                {
-                    if (UI.CurrentAppPanel != null || UI.CurrentAppPanel.activeSelf)
+                    ScoreSystem.Fatigue.SleepFatigue();
+                    if (ScoreSystem.Fatigue.getPercentage() > 75)
                     {
-                        Destroy(UI.CurrentAppPanel);
+                        GameTimeLimit.TimeScale = GameTime.TimeScale * 2;
                     }
-                    Debug.Log("GAME OVER!");
-                    UI.DoorOSMainPanel.SetActive(false);
-                    Instantiate(ConclusionPanelPrefab).transform.SetParent(UI.transform,false);
-                    CurrentGameState = GameState.PAUSED;
+                    else
+                    {
+                        GameTimeLimit.TimeScale = GameTime.TimeScale;
+                    }
+//                    Debug.Log(ProcrastinationTime.TotalTimeSeconds / 60);
                 }
+
                 break;
         }
 
+        if (GameTimeLimit.CheckTime(day: 0, hour: 0, minute: 0))
+        {
+            if (UI.CurrentAppPanel != null || UI.CurrentAppPanel.activeSelf)
+            {
+                Destroy(UI.CurrentAppPanel);
+            }
+            Debug.Log("GAME OVER! " + "Audio: " + ScoreSystem.Audio.Score + " Engine: " + ScoreSystem.Engine.Score + " Gameplay: " + ScoreSystem.Gameplay.Score + " Graphics: " + ScoreSystem.Graphics.Score + " Story: " + ScoreSystem.Story.Score);
+            UI.DoorOSMainPanel.SetActive(false);
+            Instantiate(ConclusionPanelPrefab).transform.SetParent(UI.transform, false);
+            CurrentGameState = GameState.PAUSED;
+        }
 
     }
 

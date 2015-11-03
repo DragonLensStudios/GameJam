@@ -7,6 +7,10 @@ public class EventManager : MonoBehaviour
 
     public delegate void D_ResetGame();
     public static event D_ResetGame ResetGameEvent;
+
+    public delegate void D_MaxFeature();
+    public static event D_MaxFeature MaxFeatureEvent;
+
     public static void IncreaseScore()
     {
         if (IncreaseScoreEvent != null)
@@ -20,6 +24,14 @@ public class EventManager : MonoBehaviour
         if (ResetGameEvent != null)
         {
             ResetGameEvent();
+        }
+    }
+
+    public static void MaxFeature()
+    {
+        if (MaxFeatureEvent != null)
+        {
+            MaxFeatureEvent();
         }
     }
 

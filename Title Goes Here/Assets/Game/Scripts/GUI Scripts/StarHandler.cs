@@ -28,18 +28,14 @@ public class StarHandler : MonoBehaviour
                 if (Game.Manage.ScoreSystem.CurrentFeature.Score - i <= 0)
                 {
                     Stars[i].sprite = EmptyStar;
-                    Debug.Log("Empty Star set.");
                 }
                 else if (Game.Manage.ScoreSystem.CurrentFeature.Score - i < 1)
                 {
                     Stars[i].sprite = HalfStar;
-                    Debug.Log("Half Star set.");
-
                 }
                 else if (Game.Manage.ScoreSystem.CurrentFeature.Score - i >= 1)
                 {
                     Stars[i].sprite = FullStar;
-                    Debug.Log("Full Star set.");
                 }
                 else
                 {

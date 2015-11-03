@@ -30,7 +30,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d4eaced01a70e40b86057e29608f9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AppName: Code Develop
+  AppName: Writer
   AppFeature: 5
   GameState: -1
   AppHasStars: 1
@@ -222,6 +222,10 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: b7036ca6aaae8ab4997765fb3b6e0f78,
         type: 3}
+    - target: {fileID: 0}
+      propertyPath: AppName
+      value: Writer
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 184060}

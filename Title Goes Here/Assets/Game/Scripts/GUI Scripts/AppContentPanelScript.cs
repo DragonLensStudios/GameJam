@@ -16,15 +16,17 @@ public class AppContentPanelScript : MonoBehaviour
             {
                 DisplayText.text = "Working on " + Game.Manage.ScoreSystem.CurrentFeature.Name; //test content.
             }
-            if (FatigueText != null)
-            {
-                FatigueText.text = "Fatigue: " + Game.Manage.ScoreSystem.Fatigue.currentFatigue + "/" + Game.Manage.ScoreSystem.Fatigue.maxFatigue;
-            }
+
         }
         else
         {
             TimerText.text = Game.Manage.ProcrastinationTime.TimeString_H_MM;
             DisplayText.text = "Procrastinating....."; //test content.
+        }
+
+        if (FatigueText != null)
+        {
+            FatigueText.text = "Fatigue: " + Game.Manage.ScoreSystem.Fatigue.currentFatigue + "/" + Game.Manage.ScoreSystem.Fatigue.maxFatigue;
         }
     }
 }

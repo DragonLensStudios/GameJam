@@ -227,10 +227,10 @@ RectTransform:
   - {fileID: 617722407}
   m_Father: {fileID: 837436761}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 196.7547, y: -300}
+  m_SizeDelta: {x: 293.509399, y: 100}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &52234994
 MonoBehaviour:
@@ -398,7 +398,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22473750, guid: ce6e34138df1b404989ef082e737c409, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 266.355591
+      value: 266.664978
       objectReference: {fileID: 0}
     - target: {fileID: 22473750, guid: ce6e34138df1b404989ef082e737c409, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -737,7 +737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &396351860
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1233,7 +1233,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22473750, guid: fcc514d2fdaa3ce4f863360083d546ec, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 406.355591
+      value: 406.664978
       objectReference: {fileID: 0}
     - target: {fileID: 22473750, guid: fcc514d2fdaa3ce4f863360083d546ec, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -1629,7 +1629,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22473750, guid: 2410a454bf0c2a941ad5672e0511575f, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 266.355591
+      value: 266.664978
       objectReference: {fileID: 0}
     - target: {fileID: 22473750, guid: 2410a454bf0c2a941ad5672e0511575f, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -1711,7 +1711,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22473750, guid: 3cfed3c44ab9b2d41afee2544c9c00dc, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 126.355591
+      value: 126.664978
       objectReference: {fileID: 0}
     - target: {fileID: 22473750, guid: 3cfed3c44ab9b2d41afee2544c9c00dc, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -2456,6 +2456,7 @@ MonoBehaviour:
     CurrentFeature:
       Name: 
       Score: 0
+      ScoreAmount: 0
       MaxScore: 0
       Maxed: 0
       Time:
@@ -2502,11 +2503,12 @@ MonoBehaviour:
         DaysInMonth: 30
         MonthsInYear: 12
       currentFatigue: 0
-      maxFatigue: 300
+      maxFatigue: 100
       percentage: 0
     Audio:
       Name: Audio
       Score: 0
+      ScoreAmount: .5
       MaxScore: 5
       Maxed: 0
       Time:
@@ -2533,6 +2535,7 @@ MonoBehaviour:
     Engine:
       Name: Engine
       Score: 0
+      ScoreAmount: .5
       MaxScore: 5
       Maxed: 0
       Time:
@@ -2559,6 +2562,7 @@ MonoBehaviour:
     Gameplay:
       Name: Gameplay
       Score: 0
+      ScoreAmount: .5
       MaxScore: 5
       Maxed: 0
       Time:
@@ -2585,6 +2589,7 @@ MonoBehaviour:
     Graphics:
       Name: Graphics
       Score: 0
+      ScoreAmount: .5
       MaxScore: 5
       Maxed: 0
       Time:
@@ -2611,6 +2616,7 @@ MonoBehaviour:
     Story:
       Name: Story
       Score: 0
+      ScoreAmount: .5
       MaxScore: 5
       Maxed: 0
       Time:
@@ -2704,13 +2710,13 @@ MonoBehaviour:
     TimeString_H_MM_SS: 0:00:00
     TimeString_H_MM: 0:00
     totaltimesec: 0
-    Year: 1
-    Month: 1
-    Week: 1
-    Day: 1
+    Year: 0
+    Month: 0
+    Week: 0
+    Day: 0
     Hour: 0
-    Minute: 2
-    Second: 10
+    Minute: 0
+    Second: 0
     TimeScale: 4.80000019
     SecondsInMinute: 60
     MinutesInHour: 60
@@ -3515,7 +3521,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1771339025
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3610,7 +3616,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22473750, guid: 983fb0c5ddc089e459bda3bdef6b2f6f, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 406.355591
+      value: 406.664978
       objectReference: {fileID: 0}
     - target: {fileID: 22473750, guid: 983fb0c5ddc089e459bda3bdef6b2f6f, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -4042,7 +4048,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22473750, guid: d3143d3a430ab554dad91f29c3eb6cf4, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 126.355591
+      value: 126.664978
       objectReference: {fileID: 0}
     - target: {fileID: 22473750, guid: d3143d3a430ab554dad91f29c3eb6cf4, type: 2}
       propertyPath: m_AnchoredPosition.y

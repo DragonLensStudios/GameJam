@@ -11,12 +11,12 @@ public class StarHandler : MonoBehaviour
 
     void OnEnable()
     {
-        EventManager.IncreaseScoreEvent += SetStars;
+        GameEvents.IncreaseScoreEvent += SetStars;
     }
 
     void OnDisable()
     {
-        EventManager.IncreaseScoreEvent -= SetStars;
+        GameEvents.IncreaseScoreEvent -= SetStars;
     }
 
     public void SetStars()

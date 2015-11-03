@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.SocialPlatforms;
+using GooglePlayGames;
 
 public class Game: MonoBehaviour 
 {
@@ -32,23 +34,25 @@ public class Game: MonoBehaviour
     public TimeContainer RealTime = new TimeContainer(minute: 15);
     public TimeContainer ProcrastinationTime = new TimeContainer(timescale: 60);
 
+    public bool OnHomeScreen = true;
+
     public GameObject ConclusionPanelPrefab;
 
     void OnEnable()
     {
-        EventManager.ResetGameEvent += StartGame;
-        EventManager.MaxFeatureEvent += Maxxed;
+        GameEvents.ResetGameEvent += StartGame;
+        GameEvents.MaxFeatureEvent += MaxedFeature;
     }
 
     void OnDisable()
     {
-        EventManager.ResetGameEvent -= StartGame;
-        EventManager.MaxFeatureEvent -= Maxxed;
+        GameEvents.ResetGameEvent -= StartGame;
+        GameEvents.MaxFeatureEvent -= MaxedFeature;
     }
 
-    public void Maxxed()
+    public void MaxedFeature()
     {
-        Debug.Log(ScoreSystem.CurrentFeature.Name + "MAXED!");
+        GameEvents.ShowMessage(message: "MAXED FEATURE: " + ScoreSystem.CurrentFeature.Name, time: 3);
     }
 
     void Awake()
@@ -64,9 +68,18 @@ public class Game: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameName = UI.GameNameInput.text;
-        GameTime.StartTime(TimeType.Minute);
-        GameTimeLimit.ReverseTime(TimeType.Minute);
+        if (GameTimeLimit.CheckTime(day: 2, hour: 0, minute: 0))
+        {
+            GameEvents.ShowMessage("2 Days Left!");
+        }
+        if (GameTimeLimit.CheckTime(day: 1, hour: 0, minute: 0))
+        {
+            GameEvents.ShowMessage("1 Days Left!");
+        }
+        if (GameTimeLimit.CheckTime(day: 0, hour: 0, minute: 0))
+        {
+            GameEvents.ShowMessage("TIME IS UP!");
+        }
 
         switch (CurrentGameState)
         {
@@ -76,13 +89,21 @@ public class Game: MonoBehaviour
                 Time.timeScale = 0;
                 break;
             case GameState.RUNNING:
+                Time.timeScale = 1;
+
                 if (UI.CurrentAppPanel == null || UI.CurrentAppPanel.activeSelf == false)
                 {
-                    Time.timeScale = 0;
+                    OnHomeScreen = true;
                 }
                 else
                 {
-                    Time.timeScale = 1;
+                    OnHomeScreen = false;
+                }
+
+                if (OnHomeScreen == false)
+                {
+                    GameTime.StartTime(TimeType.Minute);
+                    GameTimeLimit.ReverseTime(TimeType.Minute);
                 }
 
                 if (ScoreSystem.isWorking)
@@ -101,7 +122,6 @@ public class Game: MonoBehaviour
                     {
                         GameTimeLimit.TimeScale = GameTime.TimeScale;
                     }
-//                    Debug.Log(ProcrastinationTime.TotalTimeSeconds / 60);
                 }
 
                 break;
@@ -113,7 +133,7 @@ public class Game: MonoBehaviour
             {
                 Destroy(UI.CurrentAppPanel);
             }
-            Debug.Log("GAME OVER! " + "Audio: " + ScoreSystem.Audio.Score + " Engine: " + ScoreSystem.Engine.Score + " Gameplay: " + ScoreSystem.Gameplay.Score + " Graphics: " + ScoreSystem.Graphics.Score + " Story: " + ScoreSystem.Story.Score);
+//            Debug.Log("GAME OVER! " + "Audio: " + ScoreSystem.Audio.Score + " Engine: " + ScoreSystem.Engine.Score + " Gameplay: " + ScoreSystem.Gameplay.Score + " Graphics: " + ScoreSystem.Graphics.Score + " Story: " + ScoreSystem.Story.Score);
             UI.DoorOSMainPanel.SetActive(false);
             Instantiate(ConclusionPanelPrefab).transform.SetParent(UI.transform, false);
             CurrentGameState = GameState.PAUSED;
@@ -134,9 +154,10 @@ public class Game: MonoBehaviour
     public void CloseApp()
     {
         UI.DoorAppsPanel.SetActive(true);
-        if (UI.CurrentAppPanel != null)
+        if (UI.CurrentAppPanel.activeSelf == true)
         {
-            Destroy(UI.CurrentAppPanel);
+            UI.CurrentAppPanel.SetActive(false);
+            UI.CurrentAppPanel = null;
         }
     }
 

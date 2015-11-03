@@ -76,12 +76,12 @@ public class StarScoreSystem
                 CurrentFeature.Time.StartTime(TimeType.Minute);
                 if (Fatigue.getPercentage() < 50)
                 {
-                    UnityEngine.Debug.Log("Normal Timescale");
+//                    UnityEngine.Debug.Log("Normal Timescale");
                     CurrentFeature.Time.TimeScale = Game.Manage.GameTime.TimeScale;
                 }
                 if (Fatigue.getPercentage() >= 50 )
                 {
-                    UnityEngine.Debug.Log("Lowered timescale to half");
+//                    UnityEngine.Debug.Log("Lowered timescale to half");
                     CurrentFeature.Time.TimeScale = Game.Manage.GameTime.TimeScale / 2;
                 }
                 CurrentFeature.ProgressScore();

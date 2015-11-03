@@ -96,11 +96,16 @@ public class GameFeature
     {
         Time.ResetTime(hour: true, minute: true, second: true);
         Score += ScoreAmount;
-        EventManager.IncreaseScore();
+        GameEvents.IncreaseScore();
+        if (Score == (int)Score)  // This is kinda a hack way of doing things but it works lol. since Score is a float this will round it when typecasted to Int
+        {
+            GameEvents.ShowMessage(message: "Star Gained", time: 3);
+            UnityEngine.Debug.Log("Full Star Gained");
+        }
         if (Score >= MaxScore)
         {
             Maxed = true;
-            EventManager.MaxFeature();
+            GameEvents.MaxFeature();
         }
     }
 

@@ -1,10 +1,15 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-
-public class TopAppPanelScript : MonoBehaviour 
+﻿namespace DLS.Games.TitleGoesHere
 {
-    public Text TitleText;
-    public Text AppTimeText;
-    public StarHandler StarHandler;
-    public GameObject StarHandlerObject;
+    using UnityEngine;
+    using UnityEngine.UI;
+
+    public class TopAppPanelScript : MonoBehaviour
+    {
+        public Text TitleText;
+        public Text AppTimeText;
+        public StarHandler StarHandler;
+        public GameObject StarHandlerObject;
+    }
+
 }
+

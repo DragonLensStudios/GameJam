@@ -1,18 +1,22 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-
-public class ConclusionScreenScript : MonoBehaviour
+﻿namespace DLS.Games.TitleGoesHere
 {
-    public Text GameTitle;
+    using UnityEngine;
+    using UnityEngine.UI;
 
-    void OnEnable()
+    public class ConclusionScreenScript : MonoBehaviour
     {
-        GameTitle.text = Game.Manage.GameName;
-    }
+        public Text GameTitle;
 
-    public void ReturnToTitle()
-    {
-        Game.Manage.UI.MainMenuPanel.SetActive(true);
-        Destroy(gameObject);
+        void OnEnable()
+        {
+            GameTitle.text = Game.Manage.CurrentGameProject.Name;
+        }
+
+        public void ReturnToTitle()
+        {
+            Game.Manage.UI.MainMenuPanel.SetActive(true);
+            Destroy(gameObject);
+        }
     }
 }
+

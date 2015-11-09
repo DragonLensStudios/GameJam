@@ -1,26 +1,29 @@
-﻿using UnityEngine;
-
-public class AppOpenPanel : MonoBehaviour 
+﻿namespace DLS.Games.TitleGoesHere
 {
-    public GameObject TopBarPanel;
-    public GameObject ContentPanel;
-    public TopAppPanelScript top_panel_script;
-    public AppContentPanelScript content_panel_script;
-
-    void Awake()
+    using UnityEngine;
+    public class AppOpenPanel : MonoBehaviour
     {
-        if (TopBarPanel != null)
-        {
-            top_panel_script = TopBarPanel.GetComponent<TopAppPanelScript>();
-        }
-        if (ContentPanel != null)
-        {
-            content_panel_script = ContentPanel.GetComponent<AppContentPanelScript>();
-        }
-    }
+        public GameObject TopBarPanel;
+        public GameObject ContentPanel;
+        public TopAppPanelScript top_panel_script;
+        public AppContentPanelScript content_panel_script;
 
-    public void ExitButton()
-    {
-        Game.Manage.CloseApp();
+        void Awake()
+        {
+            if (TopBarPanel != null)
+            {
+                top_panel_script = TopBarPanel.GetComponent<TopAppPanelScript>();
+            }
+            if (ContentPanel != null)
+            {
+                content_panel_script = ContentPanel.GetComponent<AppContentPanelScript>();
+            }
+        }
+
+        public void ExitButton()
+        {
+            Game.Manage.CloseApp();
+        }
     }
 }
+

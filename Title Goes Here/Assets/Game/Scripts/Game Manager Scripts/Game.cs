@@ -1,194 +1,160 @@
-﻿using UnityEngine;
-using UnityEngine.SocialPlatforms;
-using GooglePlayGames;
-
-public class Game: MonoBehaviour 
+﻿namespace DLS.Games.TitleGoesHere
 {
-    private static Game instance;
-
-    public static Game Manage
+    using UnityEngine;
+    /// <summary>
+    /// This is the Game Manager class, this handles the main execution thread and handles the game state operations.
+    /// </summary>
+    public class Game : MonoBehaviour
     {
-        get
+        private static Game instance;
+
+        /// <summary>
+        /// Used to call methods and utilize variables in the Game.
+        /// </summary>
+        public static Game Manage
         {
-            if (instance == null)
+            get
             {
-                instance = FindObjectOfType<Game>();
                 if (instance == null)
                 {
-                    GameObject obj = new GameObject();
-                    obj.AddComponent<Game>();
-                }
-            }
-            return instance;
-        }
-    }
-
-    public string GameName = "Title Goes Here";
-    public AudioClip Day1song;
-    public AudioSource MusicManager;
-    public UIHandler UI;
-    public GameState CurrentGameState = GameState.PAUSED;
-    public StarScoreSystem ScoreSystem;
-    public TimeContainer GameTime = new TimeContainer(timescale: 4.8f);
-    public TimeContainer GameTimeLimit = new TimeContainer(year: 0, month: 0, day: 3, hour: 0, minute: 1, timescale: 4.8f);
-    public TimeContainer RealTime = new TimeContainer(minute: 15);
-    public TimeContainer ProcrastinationTime = new TimeContainer(timescale: 60);
-
-    public bool OnHomeScreen = true;
-
-    public GameObject ConclusionPanelPrefab;
-
-    void OnEnable()
-    {
-        GameEvents.ResetGameEvent += StartGame;
-        GameEvents.MaxFeatureEvent += MaxedFeature;
-    }
-
-    void OnDisable()
-    {
-        GameEvents.ResetGameEvent -= StartGame;
-        GameEvents.MaxFeatureEvent -= MaxedFeature;
-    }
-
-    public void MaxedFeature()
-    {
-        GameEvents.ShowMessage(message: "MAXED FEATURE: " + ScoreSystem.CurrentFeature.Name, time: 3);
-    }
-
-    void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
-    void Start()
-    {
-        MusicManager.clip = Day1song;
-        MusicManager.Play();
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if (GameTimeLimit.CheckTime(day: 2, hour: 0, minute: 0))
-        {
-            GameEvents.ShowMessage("2 Days Left!");
-        }
-        if (GameTimeLimit.CheckTime(day: 1, hour: 0, minute: 0))
-        {
-            GameEvents.ShowMessage("1 Days Left!");
-        }
-        if (GameTimeLimit.CheckTime(day: 0, hour: 0, minute: 0))
-        {
-            GameEvents.ShowMessage("TIME IS UP!");
-        }
-
-        switch (CurrentGameState)
-        {
-            case GameState.NONE:
-                break;
-            case GameState.PAUSED:
-                Time.timeScale = 0;
-                break;
-            case GameState.RUNNING:
-                Time.timeScale = 1;
-
-                if (UI.CurrentAppPanel == null || UI.CurrentAppPanel.activeSelf == false)
-                {
-                    OnHomeScreen = true;
-                }
-                else
-                {
-                    OnHomeScreen = false;
-                }
-
-                if (OnHomeScreen == false)
-                {
-                    GameTime.StartTime(TimeType.Minute);
-                    GameTimeLimit.ReverseTime(TimeType.Minute);
-                }
-
-                if (ScoreSystem.isWorking)
-                {
-                    ScoreSystem.ValidateFeature(ScoreSystem.Feature);
-                }
-                if(ScoreSystem.isWorking == false)
-                {
-                    ProcrastinationTime.StartTime(TimeType.Minute);
-                    ScoreSystem.Fatigue.SleepFatigue();
-                    if (ScoreSystem.Fatigue.getPercentage() > 75)
+                    instance = FindObjectOfType<Game>();
+                    if (instance == null)
                     {
-                        GameTimeLimit.TimeScale = GameTime.TimeScale * 2;
+                        GameObject obj = new GameObject();
+                        obj.AddComponent<Game>();
+                    }
+                }
+                return instance;
+            }
+        }
+
+        //        public string GameName = "Title Goes Here"; // Move to GameProject
+        public TimeManager Timers;
+        public AudioManager Audio;
+        public UIHandler UI;
+        public GameState CurrentGameState = GameState.PAUSED;
+        public GameProject CurrentGameProject;
+        void OnEnable()
+        {
+            GameEvents.ResetGameEvent += StartGame;
+            GameEvents.MaxFeatureEvent += MaxedFeature;
+        }
+
+        void OnDisable()
+        {
+            GameEvents.ResetGameEvent -= StartGame;
+            GameEvents.MaxFeatureEvent -= MaxedFeature;
+        }
+                                                                                                                             
+        public void MaxedFeature()
+        {
+            GameEvents.ShowMessage(message: "MAXED FEATURE: " + CurrentGameProject.CurrentFeature.Name, time: 3);
+        }
+
+        void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+
+        void Start()
+        {
+            Audio.PlayBGM(0);
+        }
+
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.M)) { Audio.Control.mute = !Audio.Control.mute; } // Toggles mute for the game audio
+            if (Input.GetKeyDown(KeyCode.T)) { Debug.Log(CurrentGameProject.TotalScore); } // Debugs total score out.
+
+            if (Timers.GameTimeLimit.CheckTime(day: 2, hour: 0, minute: 0)) { GameEvents.ShowMessage("2 Days Left!"); } //Shows Days remaining
+            if (Timers.GameTimeLimit.CheckTime(day: 1, hour: 0, minute: 0)) { GameEvents.ShowMessage("1 Day Left!"); } //Shows Days remaining
+
+            switch (CurrentGameState)
+            {
+                case GameState.NONE:
+                    break;
+                case GameState.PAUSED:
+                    Time.timeScale = 0;
+                    break;
+                case GameState.RUNNING:
+                    Time.timeScale = 1;
+
+                    // This checks to see if there is an open app and if there is run the game timers, otherwise you are on the homescreen.
+                    if (UI.CurrentAppPanel == null)
+                    {
+                        //Must be on the Homescreen or no app is open.
                     }
                     else
                     {
-                        GameTimeLimit.TimeScale = GameTime.TimeScale;
+                        Timers.GameTime.StartTime(TimeType.Minute);
+                        Timers.GameTimeLimit.ReverseTime(TimeType.Minute);
                     }
-                }
 
-                break;
-        }
+                    if (CurrentGameProject.isWorking)
+                    {
+                        CurrentGameProject.ValidateFeature(CurrentGameProject.Feature);
+                    }
+                    if (CurrentGameProject.isWorking == false)
+                    {
+                        Timers.ProcrastinationTime.StartTime(TimeType.Minute);
+                        CurrentGameProject.Fatigue.SleepFatigue();
+                        if (CurrentGameProject.Fatigue.getPercentage() > 75)
+                        {
+                            Timers.GameTimeLimit.TimeScale = Timers.GameTime.TimeScale * 2;
+                        }
+                        else
+                        {
+                            Timers.GameTimeLimit.TimeScale = Timers.GameTime.TimeScale;
+                        }
+                    }
 
-        if (GameTimeLimit.CheckTime(day: 0, hour: 0, minute: 0))
-        {
-            if (UI.CurrentAppPanel != null || UI.CurrentAppPanel.activeSelf)
-            {
-                Destroy(UI.CurrentAppPanel);
+                    break;
             }
-//            Debug.Log("GAME OVER! " + "Audio: " + ScoreSystem.Audio.Score + " Engine: " + ScoreSystem.Engine.Score + " Gameplay: " + ScoreSystem.Gameplay.Score + " Graphics: " + ScoreSystem.Graphics.Score + " Story: " + ScoreSystem.Story.Score);
-            UI.DoorOSMainPanel.SetActive(false);
-            Instantiate(ConclusionPanelPrefab).transform.SetParent(UI.transform, false);
-            CurrentGameState = GameState.PAUSED;
+
+            if (Timers.GameTimeLimit.CheckTime(day: 0, hour: 0, minute: 0))
+            {
+                GameEvents.ShowMessage("TIME IS UP");
+                if (UI.CurrentAppPanel != null | UI.CurrentAppPanel.activeSelf)
+                {
+                    Destroy(UI.CurrentAppPanel);
+                }
+//            Debug.Log("GAME OVER! " + "Audio: " + CurrentGameProject.Audio.Score + " Engine: " + CurrentGameProject.Engine.Score + " Gameplay: " + CurrentGameProject.Gameplay.Score + " Graphics: " + CurrentGameProject.Graphics.Score + " Story: " + CurrentGameProject.Story.Score);
+                UI.DoorOSMainPanel.SetActive(false);
+                Instantiate(UI.ConclusionPanelPrefab).transform.SetParent(UI.transform, false);
+                CurrentGameState = GameState.PAUSED;
+            }
+
         }
 
-    }
-
-    public void SetGameState(int gamestateindex)
-    {
-        CurrentGameState = (GameState) gamestateindex;
-    }
-
-    public void SetFeature(int featureindex)
-    {
-        ScoreSystem.Feature = (FeatureType) featureindex;
-    }
-
-    public void CloseApp()
-    {
-        UI.DoorAppsPanel.SetActive(true);
-        if (UI.CurrentAppPanel.activeSelf == true)
+        public void CloseApp()
         {
-            UI.CurrentAppPanel.SetActive(false);
-            UI.CurrentAppPanel = null;
+            UI.DoorAppsPanel.SetActive(true);
+            if (UI.CurrentAppPanel.activeSelf == true)
+            {
+                UI.CurrentAppPanel.SetActive(false);
+                UI.CurrentAppPanel = null;
+            }
         }
+
+        public void SetWorking()
+        {
+            CurrentGameProject.isWorking = true;
+        }
+        public void SetProcrastinating()
+        {
+            CurrentGameProject.isWorking = false;
+        }
+
+        public void StartGame()
+        {
+            Timers.GameTimeLimit.SetTime(year: 0, month: 0, week: 1, day: 3, hour: 0, minute: 0);
+            Timers.GameTime.ResetFullDate();
+            CurrentGameProject.FullResetScore();
+            Timers.ProcrastinationTime.ResetTime(day: true, hour: true, minute: true, second: true);
+        }
+
+
     }
 
-    public void SetWorking()
-    {
-        ScoreSystem.isWorking = true;
-    }
-    public void SetProcrastinating()
-    {
-        ScoreSystem.isWorking = false;
-    }
-
-    public void StartGame()
-    {
-        GameTimeLimit.SetTime(year: 0, month: 0, week: 1, day: 3, hour: 0, minute: 0);
-        GameTime.ResetFullDate();
-        ScoreSystem.FullResetScore();
-        ProcrastinationTime.ResetTime(day:true, minute:true, second:true, week:true);
-    }
-
-    public void SetRealTime()
-    {
-        var weekcheck = (RealTime.Day/7) + 1;
-        RealTime.Second = System.DateTime.Now.Second;
-        RealTime.Year = System.DateTime.Now.Year;
-        RealTime.Month = System.DateTime.Now.Month;
-        RealTime.CurrentMonth = (Months) System.DateTime.Now.Month;
-        RealTime.Day = System.DateTime.Now.Day;
-        RealTime.Hour = System.DateTime.Now.Hour;
-        RealTime.CurrentDay = (Days) System.DateTime.Now.DayOfWeek;
-        RealTime.Minute = System.DateTime.Now.Minute;
-        RealTime.Week = weekcheck;
-    }
 }
+

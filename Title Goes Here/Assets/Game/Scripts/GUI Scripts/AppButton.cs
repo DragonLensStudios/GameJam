@@ -1,57 +1,60 @@
-﻿using UnityEngine;
-public class AppButton : MonoBehaviour
+﻿namespace DLS.Games.TitleGoesHere
 {
-    public string AppName;
-    public FeatureType AppFeature = FeatureType.NONE;
-    public GameState GameState = GameState.NONE;
-    public bool AppHasStars = false;
-    public GameObject AppPanelPrefab;
-    private AppOpenPanel _appPanel;
-    private GameObject AppPanelObject;
-    void Awake()
+    using UnityEngine;
+    public class AppButton : MonoBehaviour
     {
-        gameObject.name = AppName + " Button";
-    }
-
-    public void OpenPanel()
-    {
-        if (AppPanelPrefab != null && AppPanelObject == null)
+        public string AppName;
+        public FeatureType AppFeature = FeatureType.NONE;
+        public GameState GameState = GameState.NONE;
+        public bool AppHasStars = false;
+        public GameObject AppPanelPrefab;
+        private AppOpenPanel _appPanel;
+        private GameObject AppPanelObject;
+        void Awake()
         {
-            AppPanelObject = Instantiate(AppPanelPrefab);
-            _appPanel = AppPanelObject.GetComponent<AppOpenPanel>();
-            AppPanelObject.transform.SetParent(Game.Manage.UI.DoorOSMainPanel.transform, false);
-            AppPanelObject.SetActive(false);
+            gameObject.name = AppName + " Button";
         }
-        if (AppPanelObject != null)
+
+        public void OpenPanel()
         {
-            Game.Manage.UI.CurrentAppPanel = AppPanelObject;
-            AppPanelObject.name = AppName + " Panel";
-            _appPanel.top_panel_script.TitleText.text = AppName;
-            if (AppHasStars)
+            if (AppPanelPrefab != null && AppPanelObject == null)
             {
-                _appPanel.top_panel_script.StarHandlerObject.SetActive(true);
+                AppPanelObject = Instantiate(AppPanelPrefab);
+                _appPanel = AppPanelObject.GetComponent<AppOpenPanel>();
+                AppPanelObject.transform.SetParent(Game.Manage.UI.DoorOSMainPanel.transform, false);
+                AppPanelObject.SetActive(false);
+            }
+            if (AppPanelObject != null)
+            {
+                Game.Manage.UI.CurrentAppPanel = AppPanelObject;
+                AppPanelObject.name = AppName + " Panel";
+                _appPanel.top_panel_script.TitleText.text = AppName;
+                if (AppHasStars)
+                {
+                    _appPanel.top_panel_script.StarHandlerObject.SetActive(true);
+                }
+                else
+                {
+                    _appPanel.top_panel_script.StarHandlerObject.SetActive(false);
+                }
+                AppPanelObject.SetActive(!AppPanelObject.activeSelf);
+            }
+
+            if (GameState != GameState.NONE)
+            {
+                Game.Manage.CurrentGameState = GameState;
+            }
+
+            if (AppFeature == FeatureType.NONE)
+            {
+                Game.Manage.SetProcrastinating();
             }
             else
             {
-                _appPanel.top_panel_script.StarHandlerObject.SetActive(false);
+                Game.Manage.SetWorking();
             }
-            AppPanelObject.SetActive(!AppPanelObject.activeSelf);
-        }
+            Game.Manage.CurrentGameProject.Feature = AppFeature;
 
-        if (GameState != GameState.NONE)
-        {
-            Game.Manage.CurrentGameState = GameState;
         }
-
-        if (AppFeature == FeatureType.NONE)
-        {
-            Game.Manage.SetProcrastinating();
-        }
-        else
-        {
-            Game.Manage.SetWorking();
-        }
-        Game.Manage.ScoreSystem.Feature = AppFeature;
-
     }
 }
